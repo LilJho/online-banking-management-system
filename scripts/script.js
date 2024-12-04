@@ -9,3 +9,9 @@ signUpButton.addEventListener('click', () => {
 signInButton.addEventListener('click', () => {
     container.classList.remove("right-panel-active");
 });
+
+// Get today's date in YYYY-MM-DD format
+const today = new Date().toISOString().split('T')[0];   
+  
+// Set the max attribute to today's date
+document.getElementById('birthdate').setAttribute('max', today);

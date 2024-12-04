@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Double Slider Sign in/up Form</title>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'><link rel="stylesheet" href="./styles/style.css">
-
   <?php
 // Initialize error variable
 $error = '';
@@ -26,7 +25,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Handle registration
         $formData = [
             'firstname' => $_POST['firstname'] ?? null,
+            'middlename' => $_POST['middlename'] ?? null,
             'lastname' => $_POST['lastname'] ?? null,
+            'birthdate' => $_POST['birthdate'] ?? null,
+            'phonenumber' => $_POST['phonenumber'] ?? null,
             'email' => $_POST['email'] ?? null,
             'password' => $_POST['password'] ?? null
         ];
@@ -72,16 +74,19 @@ function register($formData) {
     }
 
     // Prepare SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO users (first_name, last_name, email, pass) VALUES (?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (first_name, middle_name, last_name, birth_date, phone_number, email, pass) VALUES (?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Error preparing statement: " . $conn->error);
     }
 
     // Bind parameters
     $stmt->bind_param(
-        "ssss", 
+        "sssssss", 
         $formData['firstname'], 
+        $formData['middlename'], 
         $formData['lastname'], 
+        $formData['birthdate'], 
+        $formData['phonenumber'], 
         $formData['email'], 
         $formData['password']
     );
@@ -162,7 +167,10 @@ function login($formData) {
             </div> -->
             <span>or use your email for registration</span>
             <input name="firstname" type="text" placeholder="First Name" required />
+            <input name="middlename" type="text" placeholder="Middle Name" required />
             <input name="lastname" type="text" placeholder="Last Name" required />
+            <input type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
+            <input name="phonenumber" type="text" placeholder="Phone Number" required />
             <input name="email" type="email" placeholder="Email" required />
             <input name="password" type="password" placeholder="Password" required />
             <button name="register" type="submit">Sign Up</button>
