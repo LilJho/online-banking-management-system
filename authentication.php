@@ -27,10 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'firstname' => $_POST['firstname'] ?? null,
             'middlename' => $_POST['middlename'] ?? null,
             'lastname' => $_POST['lastname'] ?? null,
+            'address' => $_POST['address'] ?? null,
+            'gender' => $_POST['gender'] ?? null,
             'birthdate' => $_POST['birthdate'] ?? null,
             'phonenumber' => $_POST['phonenumber'] ?? null,
             'email' => $_POST['email'] ?? null,
-            'password' => $_POST['password'] ?? null
+            'password' => $_POST['password'] ?? null,
         ];
 
         // Log form data to the browser console (optional)
@@ -73,18 +75,31 @@ function register($formData) {
         die("Database connection failed: " . $conn->connect_error);
     }
 
+    console_log($formData['gender']);
+
+    // Validate the gender field
+    $gender = isset($formData['gender']) ? $formData['gender'] : '';
+    if ($gender !== 'male' && $gender !== 'female') {
+        echo "Invalid gender value. Please select 'male' or 'female'.";
+        return;
+    }
+
     // Prepare SQL statement to prevent SQL injection
-    $stmt = $conn->prepare("INSERT INTO users (first_name, middle_name, last_name, birth_date, phone_number, email, pass) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (first_name, middle_name, last_name, birth_date, phone_number, email, pass, address, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         die("Error preparing statement: " . $conn->error);
     }
 
+    
+
     // Bind parameters
     $stmt->bind_param(
-        "sssssss", 
+        "sssssssss", 
         $formData['firstname'], 
         $formData['middlename'], 
         $formData['lastname'], 
+        $formData['address'], 
+        $formData['gender'],
         $formData['birthdate'], 
         $formData['phonenumber'], 
         $formData['email'], 
@@ -169,6 +184,12 @@ function login($formData) {
             <input name="firstname" type="text" placeholder="First Name" required />
             <input name="middlename" type="text" placeholder="Middle Name" required />
             <input name="lastname" type="text" placeholder="Last Name" required />
+            <input name="address" type="text" placeholder="Address" required />
+            <select name="gender" required>
+  <option value="">Select Gender</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
             <input type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
             <input name="phonenumber" type="text" placeholder="Phone Number" required />
             <input name="email" type="email" placeholder="Email" required />

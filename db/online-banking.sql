@@ -135,7 +135,7 @@ CREATE TABLE `users` (
   `isAdmin` tinyint(1) DEFAULT '0',
   `img_url` varchar(100) DEFAULT NULL,
   `is_verified` tinyint(1) NOT NULL DEFAULT '0',
-  `gender` enum('male','female') DEFAULT 'male',
+  `gender` varchar(10) DEFAULT 'male',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
