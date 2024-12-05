@@ -40,19 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Register the user
         register($formData);
-    } elseif (isset($_POST['login'])) {
-        // Handle login
-        $formData = [
-            'email' => $_POST['login_email'] ?? null,
-            'password' => $_POST['login_pass'] ?? null
-        ];
-
-        // Log form data to the browser console (optional)
-        console_log($formData);
-
-        // Authenticate the user
-        login($formData);
-    }
+    } 
 }
 
 /**
@@ -90,20 +78,18 @@ function register($formData) {
         die("Error preparing statement: " . $conn->error);
     }
 
-    
-
     // Bind parameters
     $stmt->bind_param(
         "sssssssss", 
         $formData['firstname'], 
         $formData['middlename'], 
         $formData['lastname'], 
-        $formData['address'], 
-        $formData['gender'],
         $formData['birthdate'], 
         $formData['phonenumber'], 
         $formData['email'], 
-        $formData['password']
+        $formData['password'],
+        $formData['address'], 
+        $formData['gender'],
     );
 
     // Execute the query
@@ -111,54 +97,6 @@ function register($formData) {
         echo "Registration successful!";
     } else {
         echo "Error: " . $stmt->error;
-    }
-
-    // Close the statement and connection
-    $stmt->close();
-    $conn->close();
-}
-
-function login($formData) {
-    // Database configuration
-    $host = "localhost";
-    $username = "root";
-    $password = "Password@29263";
-    $database = "online_bank_db";
-
-    // Create a new database connection
-    $conn = new mysqli($host, $username, $password, $database);
-
-    // Check for connection errors
-    if ($conn->connect_error) {
-        die("Database connection failed: " . $conn->connect_error);
-    }
-
-    // Prepare SQL statement to fetch user details
-    $stmt = $conn->prepare("SELECT pass FROM users WHERE email = ?");
-    if (!$stmt) {
-        die("Error preparing statement: " . $conn->error);
-    }
-
-    // Bind email parameter
-    $stmt->bind_param("s", $formData['email']);
-
-    // Execute the query
-    $stmt->execute();
-
-    // Fetch the result
-    $result = $stmt->get_result();
-    if ($result->num_rows === 0) {
-        echo "No account found with this email.";
-    } else {
-        // Get the stored password hash
-        $row = $result->fetch_assoc();
-        $storedPassword = $row['pass'];
-
-        if ($formData['password'] === $storedPassword) {
-            echo "Login successful!";
-        } else {
-            echo "Invalid email or password.";
-        }
     }
 
     // Close the statement and connection
@@ -175,11 +113,6 @@ function login($formData) {
     <div class="form-container sign-up-container">
         <form action="#" method="post">
             <h1>Create Account</h1>
-            <!-- <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div> -->
             <span>or use your email for registration</span>
             <input name="firstname" type="text" placeholder="First Name" required />
             <input name="middlename" type="text" placeholder="Middle Name" required />
@@ -198,19 +131,14 @@ function login($formData) {
         </form>
     </div>
     <div class="form-container sign-in-container">
-        <form action="#" method="post">
-            <h1>Sign in</h1>
-            <!-- <div class="social-container">
-                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
-                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-            </div> -->
-            <span>or use your account</span>
-            <input name="login_email" type="email" placeholder="Email" />
-            <input name="login_pass" type="password" placeholder="Password" />
-            <a href="#">Forgot your password?</a>
-            <button name="login" type="submit">Sign In</button>
-        </form>
+    <form id="loginForm">
+    <h1>Sign in</h1>
+    <input name="login_email" type="email" placeholder="Email" required />
+    <input name="login_pass" type="password" placeholder="Password" required />
+    <a href="#">Forgot your password?</a>
+    <button type="submit">Sign In</button>
+</form>
+
     </div>
     <div class="overlay-container">
         <div class="overlay">
@@ -228,7 +156,7 @@ function login($formData) {
     </div>
 </div>
 <!-- partial -->
-  <script  src="./scripts/script.js"></script>
-
+  <script  src="./scripts/script.js">
+  </script>
 </body>
 </html>
