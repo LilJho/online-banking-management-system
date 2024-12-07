@@ -6,66 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="/styles/dashboard.css">
     <link rel="stylesheet" href="/styles/acount-settings.css">
-    <?php
-// Database connection
-$host = "localhost";
-$username = "root";
-$password = "Password@29263";
-$database = "online_bank_db";
-
-// Create a new database connection
-$conn = new mysqli($host, $username, $password, $database);
-
-// Check for connection errors
-if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);
-}
-
-// Get the user ID from the request (e.g., from GET or POST)
-// $user_id = isset($_GET['id']) ? $_GET['id'] : 0; // Replace with your preferred method to retrieve ID
-$user_id = 5;
-
-// Sanitize the input to prevent SQL injection
-$user_id = $conn->real_escape_string($user_id);
-
-// Prepare the query to get the user by ID
-$query = "SELECT * FROM users WHERE id = $user_id";
-
-// Execute the query
-$result = $conn->query($query);
-
-// Check if the user was found
-if ($result->num_rows > 0) {
-    // Fetch the user data
-    $user = $result->fetch_assoc();
-    $birthday = new DateTime($user['birth_date']);
-    $formattedBirthday = $birthday->format('F j, Y');
-    
-    $first_name = $user['first_name'];
-    $middle_name = $user['middle_name'];
-    $last_name = $user['last_name'];
-    $birthday = $formattedBirthday;
-    $gender = $user['gender'];
-    $address = $user['address'];
-    $phone_number = $user['phone_number'];
-    $email = $user['email'];
-    $is_verified = $user['is_verified'];
-} else {
-    // If no user found, display default info
-    $first_name = "Unknown";
-    $middle_name = "Unknown";
-    $last_name = "User";
-    $birthday = "N/A";
-    $gender = "N/A";
-    $address = "N/A";
-    $phone_number = "N/A";
-    $email = "N/A";
-    $is_verified = 0;
-}
-
-// Close the database connection
-$conn->close();
-?>
+ 
 </head>
 <body>
     <nav class="nav">
@@ -157,23 +98,22 @@ $conn->close();
         <div class="account-details-card">
             <img src="/images/profile.png" alt="profile picture">
             <div class="account-name-birthday">
-                <p><?php echo $first_name . ' ' . $last_name; ?></p>
-            </div>
-            <div class="account-info-card">
-                <ul>
-                <li><p>Birthday:</p> <span><?php echo $birthday; ?></span></li>
-                    <li><p>Gender:</p> <span><?php echo $gender; ?></span></li>  
-                    <li><p>Address:</p> <span><?php echo $address; ?></span></li>
-                    <li><p>Phone number:</p> <span><?php echo $phone_number; ?></span></li>
-                    <li><p>Email:</p> <span><?php echo $email; ?></span></li>
-                    <li>
-                    <p>Status:</p>
-                        <div class="<?php echo ($is_verified == 1) ? 'verified' : 'not-verified'; ?>">
-                         <span><?php echo ($is_verified == 1) ? 'verified' : 'not-verified'; ?></span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <p id="full-name"></p>
+</div>
+<div class="account-info-card">
+    <ul>
+        <li><p>Birthday:</p> <span id="birthday"></span></li>
+        <li><p>Gender:</p> <span id="gender"></span></li>  
+        <li><p>Address:</p> <span id="address"></span></li>
+        <li><p>Phone number:</p> <span id="phone-number"></span></li>
+        <li><p>Email:</p> <span id="email"></span></li>
+        <li>
+            <p>Status:</p>
+            <div id="status"></div>
+        </li>
+    </ul>
+</div>
+
             <div class="update-button-container">
                 <button class="update-button" id="updateButton">Update</button>
             </div>
@@ -188,14 +128,13 @@ $conn->close();
             <h2>Update Information</h2>
             <!-- <p>Modal content can go here...</p> -->
         <form action="#" method="post">
-            <input name="firstname" type="text" value="<?php echo $first_name; ?>" required />
-            <input name="middlename" type="text" value="<?php echo $middle_name; ?>" required />
-            <input name="lastname" type="text" value="<?php echo $last_name; ?>" required />
-            <input type="date" id="birthdate" name="birthdate" value="<?php echo $birthday; ?>" required>
-            <input name="phonenumber" type="text" value="<?php echo $phone_number; ?>" required />
-            <input name="email" type="email" value="<?php echo $email; ?>" required />
-            <!-- <input name="password" type="password" placeholder="Password" required /> -->
-            <button class="update-btn" name="update" type="submit">Update</button>
+            <input name="firstname" type="text" id="firstname" required />
+    <input name="middlename" type="text" id="middlename" required />
+    <input name="lastname" type="text" id="lastname" required />
+    <input type="date" id="birthdate" name="birthdate" required>
+    <input name="phonenumber" type="text" id="phonenumber" required />
+    <!-- <input name="email" type="email" id="email" required /> -->
+    <button class="update-btn" name="update" type="submit">Update</button>
         </form>
         </div>
     </div>
@@ -203,30 +142,6 @@ $conn->close();
     </main>
     
 
-    <script>
-// Get the modal
-const modal = document.getElementById("updateModal");
-        // Get the button that opens the modal
-        const updateButton = document.getElementById("updateButton");
-        // Get the <span> element that closes the modal
-        const closeButton = document.getElementById("closeModal");
-
-        // When the user clicks the button, open the modal
-        updateButton.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        // When the user clicks on <span> (x), close the modal
-        closeButton.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        // When the user clicks anywhere outside the modal, close it
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
-</script>
+    <script src="/scripts/update-account.js"></script>
 </body>
 </html>
