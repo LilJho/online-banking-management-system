@@ -104,34 +104,7 @@
             <button id="create-offer-btn">Create Offer</button>
             <h2>Offers for today</h2>
             <div class="offers-container">
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
-                <div class="offer-card">
-                    <img src="./uploads/offers/offer.png" alt="offer">
-                    <p>Test Offer</p>
-                </div>
+               
             </div>
         </div>
 
@@ -182,5 +155,6 @@
     <script src="/scripts/create-offer.js">
 
     </script>
+    <script src="/scripts/get-all-offers.js"></script>
 </body>
 </html>

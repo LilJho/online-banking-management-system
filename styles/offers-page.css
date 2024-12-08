@@ -49,12 +49,12 @@
     flex: 0 0 calc(20% - 16px); /* Ensure 3 items per row with space */
     box-sizing: border-box; /* Include padding/borders in width */
     width: 20%;
-    height: 20%;
+    height: 40%;
 }
 
 .offers-section-card .offers-container .offer-card img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
 }
 

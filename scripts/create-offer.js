@@ -77,12 +77,13 @@ const modal = document.getElementById("create-offer");
                 const result = await response.json(); // Parse the JSON response
                 console.log('Image URL:', result.imageUrl);
                 console.log('Image Title:', result.imageTitle);
+                window.location.reload
             } catch (error) {
                 console.error('Error uploading the image:', error);
             } finally {
                
             modal.style.display = "none";
-               
+            fetchOffers();
             }
         });
         
