@@ -119,10 +119,15 @@ function register($formData) {
             <input name="lastname" type="text" placeholder="Last Name" required />
             <input name="address" type="text" placeholder="Address" required />
             <select name="gender" required>
-  <option value="">Select Gender</option>
-  <option value="male">Male</option>
-  <option value="female">Female</option>
-</select>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <!-- <select name="Type of Account" required>
+                <option value="">Savings</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select> -->
             <input type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
             <input name="phonenumber" type="text" placeholder="Phone Number" required />
             <input name="email" type="email" placeholder="Email" required />
