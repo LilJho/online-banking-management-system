@@ -1,0 +1,176 @@
+.announcements-section-card {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border: 1px solid red;
+    position: relative;
+}
+
+.announcements-section-card h2 {
+    text-align: center;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.announcements-section-card button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #28a745; /* Green background */
+    color: #ffffff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px; /* Optional: rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.announcements-section-card button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+.announcements-section-card .announcements-container {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: row;
+    flex-wrap: wrap; /* Allow items to wrap to the next row */
+    gap: 16px; /
+}
+
+.announcements-section-card .announcements-container .announcement-card {
+    flex: 0 0 calc(20% - 16px); /* Ensure 3 items per row with space */
+    box-sizing: border-box; /* Include padding/borders in width */
+    width: 20%;
+    height: 40%;
+    word-wrap: break-word;
+    overflow: hidden;
+}
+
+.announcements-section-card .announcements-container .announcement-card
+h4 {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.announcements-section-card .announcements-container .announcement-card p {
+    text-align: left;
+}
+
+/* Modal styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 8% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.close-button {
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.create-announcement-to-db {
+    border-radius: 10px;
+    border: 1px solid #28a745;
+    background-color: #28a745;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 12rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    margin-top: 2rem;
+  }
+  
+  .create-announcement-to-db:active {
+    transform: scale(0.95);
+  }
+  
+  .create-announcement-to-db:focus {
+    outline: none;
+  }
+  
+  .create-announcement-to-db.ghost {
+    background-color: transparent;
+    border-color: #ffffff;
+  }
+
+  .create-announcement-form {
+    width: 30rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    /* border: 1px solid red; */
+  }
+
+  .create-announcement-form .create-announcement-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+    .create-announcement-form .create-announcement-detail input {
+        background-color: #eee;
+        border: none;
+        padding: 12px 15px;
+        margin: 8px 0;
+        width: 94%;
+    }
+
+    .create-announcement-form .create-announcement-detail textarea {
+        background-color: #eee; /* Match input background */
+        border: none;          /* Match input border */
+        padding: 12px 15px 188px;    /* Match input padding */
+        margin: 8px 0;         /* Match input margin */
+        width: 100%;           /* Match input width */
+        resize: vertical;      /* Allow vertical resizing only */
+        font-family: inherit;  /* Match font with input fields */
+        font-size: inherit;    /* Match font size with input fields */
+        box-sizing: border-box; /* Ensure padding doesn't affect width */
+    }

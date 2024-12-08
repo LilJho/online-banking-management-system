@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/styles/dashboard.css">
-    <link rel="stylesheet" href="/styles/offers-page.css">
+    <link rel="stylesheet" href="/styles/announcement.css">
 
 </head>
 <body>
@@ -31,7 +31,8 @@
                 </div>
 </a>
             </li>
-            <li class="active">
+            <li>
+            <a href="offers-page.php">
                 <div>
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
   <path d="M20 7h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C10.4 2.842 8.949 2 7.5 2A3.5 3.5 0 0 0 4 5.5c.003.52.123 1.033.351 1.5H4a2 2 0 0 0-2 2v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V9a2 2 0 0 0-2-2Zm-9.942 0H7.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM13 14h-2v8h2v-8Zm-4 0H4v6a2 2 0 0 0 2 2h3v-8Zm6 0v8h3a2 2 0 0 0 2-2v-6h-5Z"/>
@@ -40,9 +41,9 @@
 
                     
                     <p>Offers</p>
-                </div>  
+                </div>  </a>
             </li>
-            <li>
+            <li class="active">
                 <div>
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
   <path fill-rule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
@@ -100,10 +101,10 @@
     </section>
 
     <section class="main-card">
-        <div class="offers-section-card">
-            <button id="create-offer-btn">Create Announcement</button>
-            <h2>Offers for today</h2>
-            <div class="offers-container"> 
+        <div class="announcements-section-card">
+            <button id="create-announcement-btn">Create Announcement</button>
+            <h2>Announcements for today</h2>
+            <div class="announcements-container">
                
             </div>
         </div>
@@ -113,48 +114,44 @@
     </main>
 
     <!-- Modal dialog -->
-    <div id="create-offer" class="modal">
+    <div id="create-announcement" class="modal">
         <div class="modal-content">
-            <span class="close-button" id="close-create-offer-btn">&times;</span>
+            <span class="close-button" id="close-create-announcement-btn">&times;</span>
             <h2>Create Offer</h2>
 
             <!-- Form to accept image and title -->
-        <form class="create-offer-form">
-            <!-- Input for the image -->
-            <div class="img-container">
-             <!-- Preview of uploaded image -->
-                <img id="image-preview" src="" alt="Image Preview" style="max-width: 100%; height: auto; display: none;" />
-            </div>
+        <form class="create-announcement-form">
                 
-            <div class="create-offer-detail">
-            <input
-                type="file"
-                id="image-upload"
-                name="offer-image"
-                accept="image/*"
-                required
-            />
-           
+            <div class="create-announcement-detail">
                 <input
                     type="text"
-                    id="image-title"
-                    name="image-title" 
-                    placeholder="Image Title"
+                    id="announcement-title"
+                    name="announcement-title"
+                    placeholder="Announcement Title"
                     required
                 />
+                <textarea
+                id="announcement-description"
+                cols="50"  
+                rows="4"  
+                name="announcement-description"
+                placeholder="Announcement Description"
+                required
+                ></textarea>
+
             </div>
                     
            
-            <button class="create-offer-to-db" name="create-offer-to-db" type="submit">Create</button>
+            <button class="create-announcement-to-db" name="create-announcement-to-db" type="submit">Create</button>
         </form>
         </div>
     </div>
 
     
 
-    <script src="/scripts/create-offer.js">
+    <script src="/scripts/get-all-announcements.js"> </script>
+    <script src="/scripts/create-announcement.js"> </script>
 
-    </script>
-    <script src="/scripts/get-all-offers.js"></script>
+   
 </body>
 </html>
