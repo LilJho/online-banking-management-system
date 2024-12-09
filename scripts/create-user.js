@@ -52,6 +52,6 @@ document.querySelector('.create-user-form').addEventListener('submit', async fun
             console.error('Error message:', error.message);
         }
     } finally {
-        window.location.reload()
+        // window.location.reload()
     }
 });

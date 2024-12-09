@@ -63,16 +63,22 @@ async function fetchAccounts() {
             const statusData = document.createElement('td');
             statusData.textContent = parseInt(account.is_verified) === 1 ? "Verified" : "Not Verified";
 
-            // Create buttons and wrap them in separate <td> elements
-            const archiveData = document.createElement('td');
-            const archiveButton = document.createElement('button');
-            archiveButton.textContent = "Archive";
-            archiveData.appendChild(archiveButton);
-
-            const blockData = document.createElement('td');
-            const blockButton = document.createElement('button');
-            blockButton.textContent = "Block";
-            blockData.appendChild(blockButton);
+             // Create buttons and wrap them in separate <td> elements
+             const archiveData = document.createElement('td');
+             const archiveButton = document.createElement('button');
+             archiveButton.textContent = "Archive";
+             archiveButton.onclick = function() {
+                 handleAction(account.id, 'archive'); // Handle archiving
+             };
+             archiveData.appendChild(archiveButton);
+ 
+             const blockData = document.createElement('td');
+             const blockButton = document.createElement('button');
+             blockButton.textContent = parseInt(account.is_blocked) === 1 ? "Unblock" : "Block";
+             blockButton.onclick = function() {
+                 handleAction(account.id, parseInt(account.is_blocked) === 1 ? 'unblock' : 'block'); // Handle blocking
+             };
+             blockData.appendChild(blockButton);
 
             // Append all data and buttons to the row
             tableRowCard.appendChild(fullNameData);
@@ -94,7 +100,36 @@ async function fetchAccounts() {
     }
 }
 
+async function handleAction(userId, action) {
+    try {
+        const response = await fetch('/block-archive-user.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId: userId, action: action })
+        });
+
+        const result = await response.json();
+        
+        if (result.success) {
+            alert(`${action.charAt(0).toUpperCase() + action.slice(1)} action successful!`);
+            location.reload(); // Reload the page to reflect the changes
+        } else {
+            alert(`Failed to ${action} the user.`);
+        }
+    } catch (error) {
+        console.error('Error handling action:', error);
+    }
+}
+
 // Automatically fetch offers when the page loads
 window.onload = function () {
     fetchAccounts();
+
+    const user = JSON.parse(localStorage.getItem("user"));
+  const fullName = user.first_name === "admin" ? `${user.first_name}` : `${user.first_name} ${user.last_name}`
+
+  const fullNameContainer = document.getElementById("full-name");
+  fullNameContainer.textContent = fullName
 };

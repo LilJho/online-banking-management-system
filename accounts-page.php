@@ -156,6 +156,6 @@
     <script src="/scripts/get-all-user-accounts.js"> </script>
     <script src="/scripts/create-user.js"> </script>
     <script src="/scripts/logout.js"></script> 
-    <script src="/scripts/getUserfFromLocalStorage.js"></script>
+    <!-- <script src="/scripts/getUserfFromLocalStorage.js"></script> -->
 </body>
 </html>

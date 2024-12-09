@@ -18,9 +18,9 @@ if ($conn->connect_error) {
 }
 
 // Fetch all offers
-$sql = "SELECT id, first_name, middle_name, last_name, gender, email, address, phone_number, birth_date, is_verified 
+$sql = "SELECT id, first_name, middle_name, last_name, gender, email, address, phone_number, birth_date, is_verified, is_blocked, is_archived 
         FROM users 
-        WHERE isAdmin = 0";
+        WHERE isAdmin = 0 AND is_archived = 0";
 $result = $conn->query($sql);
 
 if ($result) {
