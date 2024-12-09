@@ -19,12 +19,153 @@ table {
   }
 
   .users-container {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     border: 1px solid red;
-    padding: 1rem;
+    padding-top: 4rem;
     display: flex;
-    flex-direction: row;
-    align-items: start;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    position: relative;
   }
+
+  .users-container #create-user-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #28a745; /* Green background */
+    color: #ffffff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px; /* Optional: rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.users-container button:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.modal-content {
+  background-color: white;
+  margin: 8% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.close-button {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.create-user-to-db {
+  border-radius: 10px;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 12rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin-top: 2rem;
+}
+
+.create-user-to-db:active {
+  transform: scale(0.95);
+}
+
+.create-user-to-db:focus {
+  outline: none;
+}
+
+.create-user-to-db.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+.create-user-form {
+  width: 30rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.create-user-form .create-user-detail {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.create-user-form .create-user-detail .create-user-tab {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-user-form .create-user-detail input,
+.create-user-form .create-user-detail select {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 94%;
+  font-size: 16px; /* Ensure font size matches input field */
+  color: #333; /* Adjust text color if needed */
+  border-radius: 4px; /* Optional: add rounded corners for a consistent look */
+}
+
+.create-user-form .create-user-detail select {
+  width: 100%;
+  -webkit-appearance: none; /* Remove default styling for select on WebKit-based browsers */
+  -moz-appearance: none; /* Remove default styling for select on Firefox */
+  appearance: none; /* Remove default styling */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 6"><path fill="none" stroke="%23333" stroke-width="2" d="M1 1l4 4 4-4"/></svg>'); /* Custom down arrow */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Position the arrow to the right */
+  background-size: 10px 6px; /* Size of the arrow */
+}

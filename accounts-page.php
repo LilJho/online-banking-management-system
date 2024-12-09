@@ -102,6 +102,7 @@
 
     <section class="main-card">
         <div class="users-container">
+        <button id="create-user-btn">Create User</button>
         <table class="my_table">
   <tr>
     <th>Full Name</th>
@@ -123,35 +124,41 @@
     </main>
 
     <!-- Modal dialog -->
-    <div id="create-announcement" class="modal">
+    <div id="create-user" class="modal">
         <div class="modal-content">
-            <span class="close-button" id="close-create-announcement-btn">&times;</span>
+            <span class="close-button" id="close-create-user-btn">&times;</span>
             <h2>Create Offer</h2>
-
-            <!-- Form to accept image and title -->
-        <form class="create-announcement-form">
+        <form class="create-user-form">
                 
-            <div class="create-announcement-detail">
-                <input
-                    type="text"
-                    id="announcement-title"
-                    name="announcement-title"
-                    placeholder="Announcement Title"
-                    required
-                />
-                <textarea
-                id="announcement-description"
-                cols="50"  
-                rows="4"  
-                name="announcement-description"
-                placeholder="Announcement Description"
-                required
-                ></textarea>
-
+            <div class="create-user-detail">
+                <div class="create-user-tab">
+                <input id="firstname" name="firstname" type="text" placeholder="First Name" required />
+            <input id="middlename" name="middlename" type="text" placeholder="Middle Name" required />
+            <input id="lastname" name="lastname" type="text" placeholder="Last Name" required />
+            <input id="address" name="address" type="text" placeholder="Address" required />
+            <select id="gender" name="gender" required>
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+                </div>
+                <div class="create-user-tab">
+                <select id="account" name="account" required>
+                <option value="">Type of Account</option>
+                <option value="savings">Savings</option>
+                <option value="credit">Credit</option>
+                <option value="loan">Loan</option>
+            </select>
+            <input id="balance" name="balance" type="number" placeholder="Balance" required />
+            <input id="birthdate" type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
+            <input id="phonenumber" name="phonenumber" type="text" placeholder="Phone Number" required />
+            <input id="email" name="email" type="email" placeholder="Email" required />
+            <input id="password" name="password" type="password" placeholder="Password" required />
+                </div>
             </div>
                     
            
-            <button class="create-announcement-to-db" name="create-announcement-to-db" type="submit">Create</button>
+            <button class="create-user-to-db" name="create-user-to-db" type="submit">Create</button>
         </form>
         </div>
     </div>
@@ -159,7 +166,8 @@
     
 
     <script src="/scripts/get-all-user-accounts.js"> </script>
-    <!-- <script src="/scripts/"> </script> -->
+    <script src="/scripts/create-user.js"> </script>
+    <!-- <script src="/scripts/"> </script> --> 
 
    
 </body>

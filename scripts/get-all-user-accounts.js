@@ -1,3 +1,26 @@
+const modal = document.getElementById("create-user");
+        // Get the button that opens the modal
+        const updateButton = document.getElementById("create-user-btn");
+        // Get the <span> element that closes the modal
+        const closeButton = document.getElementById("close-create-user-btn");
+
+        // When the user clicks the button, open the modal
+        updateButton.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        closeButton.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside the modal, close it
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            } 
+        }
+
 // Fetch all offers from the server
 async function fetchAccounts() {
     try {
@@ -8,7 +31,7 @@ async function fetchAccounts() {
         }
 
         const accounts = await response.json();
-        console.log('Accounts:', accounts);
+        // console.log('Accounts:', accounts);
 
          // Populate the offers container
          const tablesContainer = document.querySelector('.my_table');
