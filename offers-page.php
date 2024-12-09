@@ -12,7 +12,7 @@
     <nav class="nav">
         <img src="./images/bank.png" alt="bank icon">
         <div class="user-profile">
-            <p>Jhonnel Garcia</p>
+            <p id="full-name"></p>
             <img src="/images/profile.png" alt="profile photo">
         </div>
     </nav>
@@ -43,6 +43,8 @@
                 </div>  
             </li>
             <li>
+            <a href="announcements.php">
+
                 <div>
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
   <path fill-rule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
@@ -51,18 +53,10 @@
 
                     <p>Announcements</p>
                 </div>
+            </a>
             </li>
             <li>
-                <div>
-                    <!-- <img src="/images/chart.png" alt="chart icon"> -->
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667"/>
-</svg>
-
-                    <p>Reporting</p>
-                </div>
-            </li>
-            <li>
+            <a href="accounts-page.php">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -71,6 +65,7 @@
 
                     <p>Account</p>
                 </div>
+            </a>
             </li>
         </ul>
         <ul>
@@ -87,6 +82,7 @@
             </a>
             </li>
             <li>
+            <button id="logoutButton">
                 <div class="logout">
                     <!-- <img src="/images/logout.png" alt="exit icon"> -->
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -94,7 +90,7 @@
 </svg>
 
                     <p>Logout</p>
-                </div>
+                </button>
             </li>
         </ul>
     </section>
@@ -152,9 +148,9 @@
 
     
 
-    <script src="/scripts/create-offer.js">
-
-    </script>
+    <script src="/scripts/create-offer.js"></script>
     <script src="/scripts/get-all-offers.js"></script>
+    <script src="/scripts/logout.js"></script>
+    <script src="/scripts/getUserfFromLocalStorage.js"></script>
 </body>
 </html>

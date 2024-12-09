@@ -96,6 +96,11 @@ body {
   color: red;
 }
 
+#logoutButton {
+  background-color: transparent;
+  border: 0;
+}
+
 .main-content {
   display: flex;
   flex-direction: row;

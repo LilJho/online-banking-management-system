@@ -21,7 +21,7 @@ table {
   .users-container {
     width: 90%;
     height: 90%;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     padding-top: 4rem;
     display: flex;
     flex-direction: column;
@@ -32,7 +32,7 @@ table {
 
   .users-container #create-user-btn {
     position: absolute;
-    top: 0;
+    top: 1rem;
     right: 0;
     background-color: #28a745; /* Green background */
     color: #ffffff; /* White text */

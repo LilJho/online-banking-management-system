@@ -12,7 +12,7 @@
     <nav class="nav">
         <img src="./images/bank.png" alt="bank icon">
         <div class="user-profile">
-            <p>Jhonnel Garcia</p>
+            <p id="full-name"></p>
             <img src="/images/profile.png" alt="profile photo">
         </div>
     </nav>
@@ -25,8 +25,6 @@
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
   <path fill-rule="evenodd" d="M11.293 3.293a1 1 0 0 1 1.414 0l6 6 2 2a1 1 0 0 1-1.414 1.414L19 12.414V19a2 2 0 0 1-2 2h-3a1 1 0 0 1-1-1v-3h-2v3a1 1 0 0 1-1 1H7a2 2 0 0 1-2-2v-6.586l-.293.293a1 1 0 0 1-1.414-1.414l2-2 6-6Z" clip-rule="evenodd"/>
 </svg>
-
-                    
                     <p>Dashboard</p>
                 </div>
 </a>
@@ -37,34 +35,22 @@
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
   <path d="M20 7h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C10.4 2.842 8.949 2 7.5 2A3.5 3.5 0 0 0 4 5.5c.003.52.123 1.033.351 1.5H4a2 2 0 0 0-2 2v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V9a2 2 0 0 0-2-2Zm-9.942 0H7.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM13 14h-2v8h2v-8Zm-4 0H4v6a2 2 0 0 0 2 2h3v-8Zm6 0v8h3a2 2 0 0 0 2-2v-6h-5Z"/>
 </svg>
-
-
-                    
                     <p>Offers</p>
                 </div>  
 </a>
             </li>
             <li>
+                <a href="announcements.php">
                 <div>
-                    <!-- <img src="/images/transaction.png" alt="transaction icon"> -->
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16 10 3-3m0 0-3-3m3 3H5v3m3 4-3 3m0 0 3 3m-3-3h14v-3"/>
-</svg>
-
-                    <p>Transaction</p>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M8 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1h2a2 2 0 0 1 2 2v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2Zm6 1h-4v2H9a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2h-1V4Zm-6 8a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H9a1 1 0 0 1-1-1Zm1 3a1 1 0 1 0 0 2h6a1 1 0 1 0 0-2H9Z" clip-rule="evenodd"/>
+                </svg>
+                    <p>Announcements</p>
                 </div>
+                </a>
             </li>
             <li>
-                <div>
-                    <!-- <img src="/images/chart.png" alt="chart icon"> -->
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v15a1 1 0 0 0 1 1h15M8 16l2.5-5.5 3 3L17.273 7 20 9.667"/>
-</svg>
-
-                    <p>Reporting</p>
-                </div>
-            </li>
-            <li>
+            <a href="accounts-page.php">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -73,6 +59,7 @@
 
                     <p>Account</p>
                 </div>
+</a>
             </li>
         </ul>
         <ul>
@@ -87,14 +74,13 @@
                 </div>
             </li>
             <li>
+            <button id="logoutButton">
                 <div class="logout">
-                    <!-- <img src="/images/logout.png" alt="exit icon"> -->
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
-</svg>
-
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                    </svg>
                     <p>Logout</p>
-                </div>
+                </button>
             </li>
         </ul>
     </section>
@@ -103,7 +89,7 @@
         <div class="account-details-card">
             <img src="/images/profile.png" alt="profile picture">
             <div class="account-name-birthday">
-    <p id="full-name"></p>
+    <p id="fullname"></p>
 </div>
 <div class="account-info-card">
     <ul>
@@ -118,7 +104,6 @@
         </li>
     </ul>
 </div>
-
             <div class="update-button-container">
                 <button class="update-button" id="updateButton">Update</button>
             </div>
@@ -143,10 +128,9 @@
         </form>
         </div>
     </div>
-
     </main>
-    
-
     <script src="/scripts/update-account.js"></script>
+    <script src="/scripts/logout.js"></script>
+    <!-- <script src="/scripts/getUserfFromLocalStorage.js"></script> -->
 </body>
 </html>

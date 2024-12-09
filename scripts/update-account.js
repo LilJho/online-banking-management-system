@@ -102,7 +102,7 @@ window.onload = function() {
         document.getElementById('phonenumber').value = userData.phone_number || '';
         document.getElementById('email').value = userData.email || '';
 
-        document.getElementById('full-name').textContent = userData.first_name + ' ' + userData.last_name;
+        document.getElementById('fullname').textContent = userData.first_name  === "admin" ? userData.first_name : userData.first_name + ' ' + userData.last_name;
         document.getElementById('birthday').textContent = userData.birth_date || '';
         document.getElementById('gender').textContent = userData.gender || '';
         document.getElementById('address').textContent = userData.address || '';
@@ -118,5 +118,12 @@ window.onload = function() {
             statusDiv.className = 'not-verified';
             statusDiv.innerHTML = '<span>not-verified</span>';
         }
-    }
+    } 
+
+
+    const user = JSON.parse(localStorage.getItem("user"));
+  const fullName = user.first_name === "admin" ? `${user.first_name}` : `${user.first_name} ${user.last_name}`
+
+  const fullNameContainer = document.getElementById("full-name");
+  fullNameContainer.textContent = fullName
 };
