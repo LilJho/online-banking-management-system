@@ -111,27 +111,29 @@ function register($formData) {
 <!-- partial:index.partial.html -->
 <div class="container" id="container">
     <div class="form-container sign-up-container">
-        <form action="#" method="post">
+        <form class="create-user-form">
             <h1>Create Account</h1>
             <span>or use your email for registration</span>
-            <input name="firstname" type="text" placeholder="First Name" required />
-            <input name="middlename" type="text" placeholder="Middle Name" required />
-            <input name="lastname" type="text" placeholder="Last Name" required />
-            <input name="address" type="text" placeholder="Address" required />
-            <select name="gender" required>
+            <input id="firstname" name="firstname" type="text" placeholder="First Name" required />
+            <input id="middlename" name="middlename" type="text" placeholder="Middle Name" required />
+            <input id="lastname" name="lastname" type="text" placeholder="Last Name" required />
+            <input id="address" name="address" type="text" placeholder="Address" required />
+            <select id="gender" name="gender" required>
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
-            <!-- <select name="Type of Account" required>
-                <option value="">Savings</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select> -->
-            <input type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
-            <input name="phonenumber" type="text" placeholder="Phone Number" required />
-            <input name="email" type="email" placeholder="Email" required />
-            <input name="password" type="password" placeholder="Password" required />
+            <select id="account" name="account" required>
+                <option value="">Type of Account</option>
+                <option value="savings">Savings</option>
+                <option value="credit">Credit</option>
+                <option value="loan">Loan</option>
+            </select>
+            <input id="balance" name="balance" type="number" placeholder="Balance" required />
+            <input id="birthdate" type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
+            <input id="phonenumber" name="phonenumber" type="text" placeholder="Phone Number" required />
+            <input id="email" name="email" type="email" placeholder="Email" required />
+            <input id="password" name="password" type="password" placeholder="Password" required />
             <button name="register" type="submit">Sign Up</button>
         </form>
     </div>
@@ -163,5 +165,6 @@ function register($formData) {
 <!-- partial -->
   <script  src="./scripts/script.js">
   </script>
+  <script src="/scripts/create-user.js"></script>
 </body>
 </html>
