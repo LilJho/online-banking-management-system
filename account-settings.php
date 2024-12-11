@@ -13,7 +13,7 @@
         <img src="./images/bank.png" alt="bank icon">
         <div class="user-profile">
             <p id="full-name"></p>
-            <img src="/images/profile.png" alt="profile photo">
+            <img id="profile-img" alt="profile photo">
         </div>
     </nav>
     <main class="main-content">
@@ -49,7 +49,7 @@
                 </div>
                 </a>
             </li>
-            <li>
+            <li id="account-page-link">
             <a href="accounts-page.php">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->
@@ -87,10 +87,11 @@
 
     <section class="main-card">
         <div class="account-details-card">
-            <img src="/images/profile.png" alt="profile picture">
+            <img id="profile-img-account-settings" alt="profile picture">
             <div class="account-name-birthday">
-    <p id="fullname"></p>
-</div>
+                <button class="update-profile-picture" id="update-profile-picture-btn">Update</button>
+                <p id="fullname"></p>
+            </div>
 <div class="account-info-card">
     <ul>
         <li><p>Birthday:</p> <span id="birthday"></span></li>
@@ -126,6 +127,36 @@
     <!-- <input name="email" type="email" id="email" required /> -->
     <button class="update-btn" name="update" type="submit">Update</button>
         </form>
+        </div>
+    </div>
+
+    <!-- Modal dialog -->
+    <div id="update-profile-picture" class="modal-profile-picture">
+        <div class="modal-content-profile-picture">
+            <span class="close-button-profile-picture" id="close-button-profile-picture">&times;</span>
+            <h2>Update Profile Picture</h2>
+
+            <!-- Form to accept image and title -->
+            <form class="update-profile-picture-form" enctype="multipart/form-data">
+    <!-- Input for the image -->
+    <div class="img-container">
+        <!-- Preview of uploaded image -->
+        <img id="image-preview" src="" alt="Image Preview" style="max-width: 100%; height: auto; display: none;" />
+    </div>
+
+    <div class="update-profile-picture-detail">
+        <input
+            type="file"
+            id="image-upload"
+            name="profile_picture"
+            accept="image/*"
+            required
+        />
+    </div>
+
+    <button class="update-profile-picture-to-db" name="update-profile-picture-to-db" type="submit">Update</button>
+</form>
+
         </div>
     </div>
     </main>

@@ -10,7 +10,10 @@
 </head>
 <body>
     <nav class="nav">
-        <img src="./images/bank.png" alt="bank icon">
+        <div class="bank-logo-name">
+            <img src="./images/bank.png" alt="bank icon">
+            <p>E-BANK</p>
+        </div>
         <div class="user-profile">
             <p id="full-name"></p>
             <img src="/images/profile.png" alt="profile photo">
@@ -53,7 +56,7 @@
                     <p>Announcements</p>
                 </div>
             </li>
-            <li>
+            <li id="account-page-link">
             <a href="accounts-page.php">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->
@@ -108,7 +111,7 @@
     <div id="create-announcement" class="modal">
         <div class="modal-content">
             <span class="close-button" id="close-create-announcement-btn">&times;</span>
-            <h2>Create Offer</h2>
+            <h2>Create Announcement</h2>
 
             <!-- Form to accept image and title -->
         <form class="create-announcement-form">
@@ -143,6 +146,6 @@
     <script src="/scripts/get-all-announcements.js"> </script>
     <script src="/scripts/create-announcement.js"> </script>
     <script src="/scripts/logout.js"></script>
-    <script src="/scripts/getUserfFromLocalStorage.js"></script>
+    <!-- <script src="/scripts/getUserfFromLocalStorage.js"></script> -->
 </body>
 </html>

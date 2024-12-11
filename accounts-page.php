@@ -53,7 +53,7 @@
                 </div>
                 </a>
             </li>
-            <li class="active">
+            <li id="account-page-link" class="active">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->
                     <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -92,17 +92,7 @@
         <div class="users-container">
         <button id="create-user-btn">Create User</button>
         <table class="my_table">
-  <tr>
-    <th>Full Name</th>
-    <th>Gender</th>
-    <th>Email</th>
-    <th>Address</th>
-    <th>Phone Number</th>
-    <th>Birthday</th>
-    <th>Status</th>
-    <th>Archive</th>
-    <th>Block</th>
-  </tr>
+  
   
 </table>
         </div>

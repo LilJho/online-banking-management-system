@@ -27,6 +27,7 @@ document.querySelector('.create-user-form').addEventListener('submit', async fun
     formData.append('email', email);
     formData.append('password', password);
 
+
     try {
         const response = await fetch('/create-user.php', {
             method: 'POST',
@@ -52,6 +53,11 @@ document.querySelector('.create-user-form').addEventListener('submit', async fun
             console.error('Error message:', error.message);
         }
     } finally {
-        // window.location.reload()
+        const modal = document.getElementById("create-user");
+        if(modal) {
+            modal.style.display = "none";
+        }
     }
 });
+
+

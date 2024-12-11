@@ -4,4 +4,7 @@ window.onload = function () {
 
   const fullNameContainer = document.getElementById("full-name");
   fullNameContainer.textContent = fullName
+
+   const accountsLink = document.getElementById('account-page-link');
+  accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : 'none'
 };

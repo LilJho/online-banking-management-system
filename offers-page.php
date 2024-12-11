@@ -55,7 +55,7 @@
                 </div>
             </a>
             </li>
-            <li>
+            <li id="account-page-link">
             <a href="accounts-page.php">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->
@@ -97,7 +97,7 @@
 
     <section class="main-card">
         <div class="offers-section-card">
-            <button id="create-offer-btn">Create Announcement</button>
+            <button id="create-offer-btn">Create Offer</button>
             <h2>Offers for today</h2>
             <div class="offers-container"> 
                
@@ -146,11 +146,28 @@
         </div>
     </div>
 
-    
+    <div id="edit-offer" class="edit-modal">
+    <div class="edit-modal-content">
+        <span class="close-button" id="close-edit-offer-btn">&times;</span>
+        <h2>Edit Offer</h2>
+        <form class="edit-offer-form">
+            <input type="hidden" id="edit-offer-id">
+            <div class="img-container">
+                <img id="edit-image-preview" src="" alt="Image Preview" style="max-width: 100%; height: auto; display: none;" />
+            </div>
+            <div class="update-offer-detail">
+            <input type="file" id="edit-image-upload" name="edit-offer-image" accept="image/*">
+            <input type="text" id="edit-image-title" name="edit-image-title" placeholder="Image Title" required>
+            </div>
+           
+            <button class="update-offer-btn-to-db" type="submit">Update</button>
+        </form>
+    </div>
+    </div>
 
-    <script src="/scripts/create-offer.js"></script>
     <script src="/scripts/get-all-offers.js"></script>
+    <script src="/scripts/create-offer.js"></script>
     <script src="/scripts/logout.js"></script>
-    <script src="/scripts/getUserfFromLocalStorage.js"></script>
+    <!-- <script src="/scripts/getUserfFromLocalStorage.js"></script> -->
 </body>
 </html>

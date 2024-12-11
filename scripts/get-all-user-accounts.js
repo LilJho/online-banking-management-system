@@ -35,7 +35,17 @@ async function fetchAccounts() {
 
          // Populate the offers container
          const tablesContainer = document.querySelector('.my_table');
-        //  offersContainer.innerHTML = ''; // Clear any existing content
+         tablesContainer.innerHTML = `<tr>
+    <th>Full Name</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th>Address</th>
+    <th>Phone Number</th>
+    <th>Birthday</th>
+    <th>Status</th>
+    <th>Archive</th>
+    <th>Block</th>
+  </tr>`;
  
         accounts.forEach(account => {
              // Create the offer card dynamically
@@ -129,6 +139,9 @@ window.onload = function () {
 
     const user = JSON.parse(localStorage.getItem("user"));
   const fullName = user.first_name === "admin" ? `${user.first_name}` : `${user.first_name} ${user.last_name}`
+
+  const accountsLink = document.getElementById('account-page-link');
+  accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : 'none'
 
   const fullNameContainer = document.getElementById("full-name");
   fullNameContainer.textContent = fullName

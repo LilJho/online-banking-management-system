@@ -52,6 +52,9 @@
     height: 40%;
     word-wrap: break-word;
     overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid lightgray;
+    padding: 0 1rem;
 }
 
 .announcements-section-card .announcements-container .announcement-card

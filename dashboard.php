@@ -8,7 +8,10 @@
 </head>
 <body>
     <nav class="nav">
-        <img src="./images/bank.png" alt="bank icon">
+    <div class="bank-logo-name">
+            <img src="./images/bank-logo.png" alt="bank icon">
+            <p>E-BANK</p>
+        </div>
         <div class="user-profile">
             <p id="full-name"></p>
             <img src="/images/profile.png" alt="profile photo">
@@ -53,7 +56,7 @@
                 </div>
 </a>
             </li>
-            <li>
+            <li id="account-page-link">
             <a href="accounts-page.php">
                 <div>
                     <!-- <img src="/images/user.png" alt="user icon"> -->

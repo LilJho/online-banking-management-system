@@ -43,4 +43,16 @@ async function fetchAnnouncements() {
 // Automatically fetch offers when the page loads
 window.onload = function () {
     fetchAnnouncements()
+
+    const user = JSON.parse(localStorage.getItem("user"));
+  const fullName = user.first_name === "admin" ? `${user.first_name}` : `${user.first_name} ${user.last_name}`
+
+  const createAnnouncementBtn = document.getElementById('create-announcement-btn');
+  createAnnouncementBtn.style.display = parseInt(user.isAdmin) === 1 ? "block" : 'none'
+
+  const accountsLink = document.getElementById('account-page-link');
+  accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : 'none'
+
+  const fullNameContainer = document.getElementById("full-name");
+  fullNameContainer.textContent = fullName
 };
