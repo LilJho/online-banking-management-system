@@ -66,6 +66,32 @@ async function fetchOffers() {
         document.getElementById('edit-image-title').value = offer.title;
         sessionStorage.setItem("offerId", offer.id)
     });
+    deleteBtn.addEventListener('click', async() => {
+
+        const formData = new FormData();
+        formData.append('id', offer.id);
+        
+            try {
+                const response = await fetch('/delete-offer.php', { // Replace with your actual endpoint
+                    method: 'POST',
+                    body: formData,
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+        
+                const result = await response.json(); // Parse the JSON response
+                // console.log(result)
+                // console.log('Image URL:', result.imageUrl);
+                // console.log('Image Title:', result.imageTitle);
+                window.location.reload
+            } catch (error) {
+                console.error('Error delete the image:', error);
+            } finally {
+                fetchOffers();
+            }
+     })
          });
         //  attachEditListeners();
     } catch (error) {
@@ -89,53 +115,3 @@ window.onload = function () {
     const fullNameContainer = document.getElementById("full-name");
     fullNameContainer.textContent = fullName
 };
-
-
-// function attachEditListeners() {
-//     document.querySelectorAll('.edit-offer-btn').forEach((btn) => {
-//         btn.addEventListener('click', async function () {
-//             const offerId = this.dataset.id;
-//             const response = await fetch(`/get-offer.php?id=${offerId}`);
-//             const data = await response.json();
-
-//             // Populate modal with current offer data
-//             document.getElementById('edit-offer-id').value = offerId;
-//             document.getElementById('edit-image-title').value = data.title;
-//             document.getElementById('edit-image-preview').src = data.image_url;
-//             document.getElementById('edit-image-preview').style.display = 'block';
-
-//             // Show modal
-//             document.getElementById('edit-offer').style.display = 'block';
-//         });
-//     });
-// }
-
-// document.querySelector('.edit-offer-form').addEventListener('submit', async function (event) {
-//     event.preventDefault();
-    
-//     const offerId = document.getElementById('edit-offer-id').value;
-//     const imageTitle = document.getElementById('edit-image-title').value;
-//     const file = document.getElementById('edit-image-upload').files[0];
-//     const formData = new FormData();
-
-//     formData.append('id', offerId);
-//     formData.append('image-title', imageTitle);
-//     if (file) formData.append('edit-offer-image', file);
-
-//     try {
-//         const response = await fetch('/update-offer.php', {
-//             method: 'POST',
-//             body: formData,
-//         });
-//         const result = await response.json();
-
-//         if (response.ok) {
-//             alert('Offer updated successfully!');
-//             window.location.reload();
-//         } else {
-//             console.error('Error updating the offer:', result.error);
-//         }
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// });
