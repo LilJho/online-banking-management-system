@@ -134,9 +134,40 @@
                 ></textarea>
 
             </div>
-                    
            
             <button class="create-announcement-to-db" name="create-announcement-to-db" type="submit">Create</button>
+        </form>
+        </div>
+    </div>
+
+     <!-- Modal dialog -->
+     <div id="update-announcement" class="edit-modal">
+        <div class="edit-modal-content">
+            <span class="close-edit-announcement-button" id="close-edit-announcement-button">&times;</span>
+            <h2>Update Announcement</h2>
+
+            <!-- Form to accept image and title -->
+        <form class="edit-announcement-form">
+                
+            <div class="update-announcement-detail">
+                <input
+                    type="text"
+                    id="edit-announcement-title"
+                    name="announcement-title"
+                    placeholder="Announcement Title"
+                    required
+                />
+                <textarea
+                id="edit-announcement-description"
+                cols="50"  
+                rows="4"  
+                name="announcement-description"
+                placeholder="Announcement Description"
+                required
+                ></textarea>
+
+            </div>
+            <button class="update-announcement-btn-to-db" name="update-announcement-btn-to-db" type="submit">Update</button>
         </form>
         </div>
     </div>

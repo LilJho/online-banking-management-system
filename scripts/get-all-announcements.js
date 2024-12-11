@@ -26,14 +26,43 @@ async function fetchAnnouncements() {
              // Create the title element
              const description = document.createElement('p');
              description.textContent = announcement.description; // Use the title from the fetched data
+
+             const buttonContainer = document.createElement('div');
+            buttonContainer.classList.add('button-container');
+
+             // Create Update Button
+            const updateBtn = document.createElement('button');
+            updateBtn.textContent = "Update";
+            updateBtn.classList.add('update-announcement-btn');
+            updateBtn.setAttribute('id', 'update-offer-btn');
+            updateBtn.setAttribute('data-id', announcements.id);
+
+            // Create Delete Button
+            const deleteBtn = document.createElement('button');
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add('delete-announcement-btn');
+            deleteBtn.setAttribute('data-id', announcements.id);
+
+            buttonContainer.appendChild(updateBtn)
+            buttonContainer.appendChild(deleteBtn)
  
              // Append the image and title to the offer card
              announcementCard.appendChild(title);
              announcementCard.appendChild(description);
+             announcementCard.appendChild(buttonContainer);
  
              // Append the offer card to the container
              announcementsContainer.appendChild(announcementCard);
-             console.log({announcementsContainer})
+
+             updateBtn.addEventListener('click', () => {
+                // console.log({announcement})
+                document.getElementById('update-announcement').style.display = 'block';
+                // Populate the modal with the offer details
+                // document.getElementById('edit-offer-id').value = offer.id;
+                document.getElementById('edit-announcement-title').value = announcement.title;
+                document.getElementById('edit-announcement-description').value = announcement.description;
+                sessionStorage.setItem("announcementId", announcement.id)
+            });
          });
     } catch (error) {
         console.error('Error fetching announcements:', error);
@@ -53,6 +82,6 @@ window.onload = function () {
   const accountsLink = document.getElementById('account-page-link');
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : 'none'
 
-  const fullNameContainer = document.getElementById("full-name");
+  const fullNameContainer = document.getElementById("full-name"); 
   fullNameContainer.textContent = fullName
 };

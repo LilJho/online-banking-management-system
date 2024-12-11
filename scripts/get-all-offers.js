@@ -56,7 +56,7 @@ async function fetchOffers() {
              // Append the offer card to the container
              offersContainer.appendChild(offerCard);
 
-              // Attach event listener to open the modal
+              // Attach event listener to open the modal 
     updateBtn.addEventListener('click', () => {
         document.getElementById('edit-offer').style.display = 'block';
         // Populate the modal with the offer details
