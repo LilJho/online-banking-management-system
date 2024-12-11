@@ -63,6 +63,32 @@ async function fetchAnnouncements() {
                 document.getElementById('edit-announcement-description').value = announcement.description;
                 sessionStorage.setItem("announcementId", announcement.id)
             });
+            deleteBtn.addEventListener('click', async() => {
+
+                const formData = new FormData();
+                formData.append('id', announcement.id);
+                
+                    try {
+                        const response = await fetch('/delete-announcement.php', { // Replace with your actual endpoint
+                            method: 'POST',
+                            body: formData,
+                        });
+                
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+                
+                        const result = await response.json(); // Parse the JSON response
+                        // console.log(result)
+                        // console.log('Image URL:', result.imageUrl);
+                        // console.log('Image Title:', result.imageTitle);
+                        window.location.reload
+                    } catch (error) {
+                        console.error('Error delete the announcement:', error);
+                    } finally {
+                        fetchAnnouncements();
+                    }
+             })
          });
     } catch (error) {
         console.error('Error fetching announcements:', error);
