@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $updateDeposit->bind_param("ii", $newBalance, $userId);
+        $updateDeposit->bind_param("iis", $newBalance, $userId, $accountType);
         if ($updateDeposit->execute()) {
             echo json_encode([
                 'message' => 'Balance updated successfully',
