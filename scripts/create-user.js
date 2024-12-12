@@ -111,3 +111,54 @@ document
       }
     }
   });
+
+const closedWithdrawBtn = document.getElementById("close-withdraw-btn");
+const withdrawModal = document.getElementById("withdraw-savings");
+
+closedWithdrawBtn.onclick = function () {
+  withdrawModal.style.display = "none";
+};
+
+document
+  .querySelector(".withdraw-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const depositAmount = document.getElementById("withdraw-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("withdraw-amount", depositAmount);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("/withdraw.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      fetchAccounts();
+    } catch (error) {
+      console.error("Error withdraw savings:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("withdraw-savings");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });
