@@ -1,52 +1,53 @@
 table {
-    border-collapse: collapse;
-  }
-   th {
-    background: #ccc;
-  }
-  
-  th, td {
-    border: 1px solid #ccc;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background: #efefef;
-  }
-  
-  tr:hover {
-    background: #d1d1d1;
-  }
+  border-collapse: collapse;
+}
+th {
+  background: #ccc;
+}
 
-  .users-container {
-    width: 90%;
-    height: 90%;
-    /* border: 1px solid red; */
-    padding-top: 4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    position: relative;
-  }
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
 
-  .users-container #create-user-btn {
-    position: absolute;
-    top: 1rem;
-    right: 0;
-    background-color: #28a745; /* Green background */
-    color: #ffffff; /* White text */
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    border-radius: 4px; /* Optional: rounded corners */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+tr:nth-child(even) {
+  background: #efefef;
+}
+
+tr:hover {
+  background: #d1d1d1;
+}
+
+.users-container {
+  width: 90%;
+  height: 90%;
+  /* border: 1px solid red; */
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+}
+
+.users-container #create-user-btn {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+  background-color: #28a745; /* Green background */
+  color: #ffffff; /* White text */
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px; /* Optional: rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
 }
 
 .users-container button:hover {
-    background-color: #218838; /* Darker green on hover */
-    transform: scale(1.05); /* Slight zoom effect */
+  background-color: #218838; /* Darker green on hover */
+  transform: scale(1.05); /* Slight zoom effect */
 }
 
 /* Modal styles */
@@ -168,4 +169,96 @@ table {
   background-repeat: no-repeat;
   background-position: right 10px center; /* Position the arrow to the right */
   background-size: 10px 6px; /* Size of the arrow */
+}
+
+/* deposit modal */
+.deposit-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.deposit-modal-content {
+  background-color: white;
+  margin: 8% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.close-deposit-btn {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.close-deposit-btn:hover,
+.close-deposit-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.deposit-to-db {
+  border-radius: 10px;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 12rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin-top: 2rem;
+}
+
+.deposit-to-db:active {
+  transform: scale(0.95);
+}
+
+.deposit-to-db:focus {
+  outline: none;
+}
+
+.deposit-to-db.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+.deposit-form {
+  width: 30rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.deposit-form input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 94%;
+  font-size: 16px; /* Ensure font size matches input field */
+  color: #333; /* Adjust text color if needed */
+  border-radius: 4px; /* Optional: add rounded corners for a consistent look */
 }
