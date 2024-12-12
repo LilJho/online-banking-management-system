@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $result->fetch_assoc();
         $newBalance = floatval($depositAmount) + floatval($user['balance']); // Add the deposit amount to the current balance
 
-        $updateDeposit = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ?");
+        $updateDeposit = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ? AND account_type = ?");
         if (!$updateDeposit) {
             echo json_encode(['error' => 'Error preparing update statement: ' . $conn->error]);
             exit;

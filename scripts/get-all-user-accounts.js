@@ -39,14 +39,12 @@ async function fetchAccounts() {
     <th>Full Name</th>
     <th>Gender</th>
     <th>Email</th>
-    <th>Address</th>
-    <th>Phone Number</th>
-    <th>Birthday</th>
     <th>Status</th>
     <th>Archive</th>
     <th>Block</th>
     <th>Deposit</th>
     <th>Withdraw</th>
+    <th>Loan</th>
   </tr>`;
 
     accounts.forEach((account) => {
@@ -63,14 +61,14 @@ async function fetchAccounts() {
       const emailData = document.createElement("td");
       emailData.textContent = account.email;
 
-      const addressData = document.createElement("td");
-      addressData.textContent = account.address;
+      // const addressData = document.createElement("td");
+      // addressData.textContent = account.address;
 
-      const phoneNumberData = document.createElement("td");
-      phoneNumberData.textContent = account.phone_number;
+      // const phoneNumberData = document.createElement("td");
+      // phoneNumberData.textContent = account.phone_number;
 
-      const birthdayData = document.createElement("td");
-      birthdayData.textContent = account.birth_date;
+      // const birthdayData = document.createElement("td");
+      // birthdayData.textContent = account.birth_date;
 
       const statusData = document.createElement("td");
       statusData.textContent =
@@ -110,6 +108,7 @@ async function fetchAccounts() {
       });
 
       // Create Update Button
+
       const withdrawData = document.createElement("td");
       const withdrawButton = document.createElement("button");
       withdrawButton.textContent = "Withdraw";
@@ -121,18 +120,30 @@ async function fetchAccounts() {
         document.getElementById("withdraw-savings").style.display = "block";
       });
 
+      const loanData = document.createElement("td");
+      const loanButton = document.createElement("button");
+      loanButton.textContent = "Loan";
+
+      loanData.appendChild(loanButton);
+
+      loanButton.addEventListener("click", () => {
+        localStorage.setItem("userId", account.id);
+        document.getElementById("loan").style.display = "block";
+      });
+
       // Append all data and buttons to the row
       tableRowCard.appendChild(fullNameData);
       tableRowCard.appendChild(genderData);
       tableRowCard.appendChild(emailData);
-      tableRowCard.appendChild(addressData);
-      tableRowCard.appendChild(phoneNumberData);
-      tableRowCard.appendChild(birthdayData);
+      // tableRowCard.appendChild(addressData);
+      // tableRowCard.appendChild(phoneNumberData);
+      // tableRowCard.appendChild(birthdayData);
       tableRowCard.appendChild(statusData);
       tableRowCard.appendChild(archiveData); // Archive button in its own td
       tableRowCard.appendChild(blockData); // Block button in its own td
       tableRowCard.appendChild(depositData); // Block button in its own td
       tableRowCard.appendChild(withdrawData); // Block button in its own td
+      tableRowCard.appendChild(loanData); // Block button in its own td
 
       // Append the offer card to the container
       tablesContainer.appendChild(tableRowCard);

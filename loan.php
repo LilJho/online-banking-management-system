@@ -20,13 +20,13 @@ if ($conn->connect_error) {
 // Check if the request is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = intval($_POST['id']); 
-    $withdrawAmmount = intval($_POST['withdraw-amount']); 
-    $accountType = 'savings';
+    $loanAmount = intval($_POST['loan-amount']); 
+    $accountType = 'loan';
     $status = "active";
 
     // Validate required fields
-    if (empty($userId) || empty($withdrawAmmount)) {
-        echo json_encode(['error' => 'User ID and Deposit Amount are required']);
+    if (empty($userId) || empty($loanAmount)) {
+        echo json_encode(['error' => 'User ID and Loan Amount are required']);
         exit;
     }
 
@@ -39,42 +39,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         // Update the balance if the account exists
         $user = $result->fetch_assoc();
-        $newBalance = floatval($user['balance']) - floatval($withdrawAmmount); // Minus the deposit amount to the current balance
+        $newBalance = floatval($loanAmount) + floatval($user['balance']); // Add the deposit amount to the current balance
 
-        if ($newBalance < 0) {
-            echo json_encode([
-                'error' => 'Insufficient balance. The balance is not enough for the requested amount.',
-                'current_balance' => $user['balance'],
-                'requested_amount' => $withdrawAmmount,
-            ]);
-            exit; // Stop further execution
-        }
-
-        $updateDeposit = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ? AND account_type = ?");
-        if (!$updateDeposit) {
+        $updateLoan = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ? AND account_type = ?");
+        if (!$updateLoan) {
             echo json_encode(['error' => 'Error preparing update statement: ' . $conn->error]);
             exit;
         }
 
-        $updateDeposit->bind_param("ii", $newBalance, $userId);
-        if ($updateDeposit->execute()) {
+        $updateLoan->bind_param("iis", $newBalance, $userId, $accountType);
+        if ($updateLoan->execute()) {
             echo json_encode([
                 'message' => 'Balance updated successfully',
                 'new_balance' => $newBalance,
                 'id' => $userId,
             ]);
         } else {
-            echo json_encode(['error' => 'Error updating balance: ' . $updateDeposit->error]);
+            echo json_encode(['error' => 'Error updating balance: ' . $updateLoan->error]);
         }
 
-        $updateDeposit->close();
+        $updateLoan->close();
     } else {
-        
+        // Insert a new account if it does not exist
+        $stmt = $conn->prepare("INSERT INTO accounts (user_id, account_type, balance, status) VALUES (?, ?, ?, ?)");
+        if (!$stmt) {
+            echo json_encode(['error' => 'Error preparing insert statement: ' . $conn->error]);
+            exit;
+        }
+
+        $stmt->bind_param("isis", $userId, $accountType, $loanAmount, $status);
+        if ($stmt->execute()) {
             echo json_encode([
-                'message' => 'No existing savings account!',
+                'message' => 'Account created and deposit added successfully',
                 'user_id' => $userId,
-                'balance' => $withdrawAmmount,
+                'balance' => $loanAmount,
             ]);
+        } else {
+            echo json_encode(['error' => 'Error inserting account: ' . $stmt->error]);
+        }
+
+        $stmt->close();
     }
 
     $getUser->close();
