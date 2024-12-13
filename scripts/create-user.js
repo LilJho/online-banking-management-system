@@ -264,3 +264,19 @@ document
       }
     }
   });
+
+const closedTopInvestorsTabBtn = document.getElementById(
+  "close-top-investors-btn"
+);
+const openTopInvestorsTabBtn = document.getElementById(
+  "view-top-investors-btn"
+);
+const topInvestorModal = document.getElementById("top-investors");
+
+openTopInvestorsTabBtn.onclick = function () {
+  topInvestorModal.style.display = "block";
+};
+
+closedTopInvestorsTabBtn.onclick = function () {
+  topInvestorModal.style.display = "none";
+};

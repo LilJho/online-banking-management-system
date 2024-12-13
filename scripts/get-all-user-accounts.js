@@ -194,6 +194,7 @@ async function handleAction(userId, action) {
 // Automatically fetch offers when the page loads
 window.onload = function () {
   fetchAccounts();
+  fetchTopInvestorAccounts();
 
   const user = JSON.parse(localStorage.getItem("user"));
   const fullName =
@@ -207,3 +208,55 @@ window.onload = function () {
   const fullNameContainer = document.getElementById("full-name");
   fullNameContainer.textContent = fullName;
 };
+
+async function fetchTopInvestorAccounts() {
+  try {
+    const response = await fetch("/get-all-top-investors-accounts.php"); // Adjust the path to your PHP file
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const accounts = await response.json();
+
+    console.log({ accounts });
+
+    // Populate the offers container
+    const tablesContainer = document.querySelector(".top-investors-table");
+    tablesContainer.innerHTML = `<tr>
+    <th>Full Name</th>
+    <th>Gender</th>
+    <th>Email</th>
+    <th>Savings</th>
+    </tr>`;
+
+    accounts.forEach((account) => {
+      // Create the offer card dynamically
+      const tableRowCard = document.createElement("tr");
+
+      // Create the table data for each piece of information
+      const fullNameData = document.createElement("td");
+      fullNameData.textContent = `${account.first_name} ${account.middle_name} ${account.last_name}`;
+
+      const genderData = document.createElement("td");
+      genderData.textContent = account.gender;
+
+      const emailData = document.createElement("td");
+      emailData.textContent = account.email;
+
+      const savingsData = document.createElement("td");
+      savingsData.textContent = `${account.savings}Php`;
+
+      // Append all data and buttons to the row
+      tableRowCard.appendChild(fullNameData);
+      tableRowCard.appendChild(genderData);
+      tableRowCard.appendChild(emailData);
+      tableRowCard.appendChild(savingsData);
+
+      // Append the offer card to the container
+      tablesContainer.appendChild(tableRowCard);
+    });
+  } catch (error) {
+    console.error("Error fetching offers:", error);
+  }
+}
