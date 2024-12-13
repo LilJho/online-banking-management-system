@@ -213,3 +213,54 @@ document
       }
     }
   });
+
+const closedPayLoanBtn = document.getElementById("close-pay-loan-btn");
+const payLoanModal = document.getElementById("pay-loan");
+
+closedPayLoanBtn.onclick = function () {
+  payLoanModal.style.display = "none";
+};
+
+document
+  .querySelector(".pay-loan-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const loanPayment = document.getElementById("pay-loan-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("loan-payment", loanPayment);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("/pay-loan.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      fetchAccounts();
+    } catch (error) {
+      console.error("Error pay loan:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("pay-loan");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });
