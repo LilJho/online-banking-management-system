@@ -66,3 +66,95 @@
   align-items: start;
   gap: 1rem;
 }
+
+/* deposit modal */
+.deposit-modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+}
+
+.deposit-modal-content {
+  background-color: white;
+  margin: 8% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
+.close-deposit-btn {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.close-deposit-btn:hover,
+.close-deposit-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.deposit-to-db {
+  border-radius: 10px;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 12rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin-top: 2rem;
+}
+
+.deposit-to-db:active {
+  transform: scale(0.95);
+}
+
+.deposit-to-db:focus {
+  outline: none;
+}
+
+.deposit-to-db.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+.deposit-form {
+  width: 30rem;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.deposit-form input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 94%;
+  font-size: 16px; /* Ensure font size matches input field */
+  color: #333; /* Adjust text color if needed */
+  border-radius: 4px; /* Optional: add rounded corners for a consistent look */
+}

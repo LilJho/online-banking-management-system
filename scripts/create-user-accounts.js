@@ -58,7 +58,7 @@ async function fetchUserAccounts(userId) {
 
   const loanButton = document.createElement("button");
   loanButton.classList.add("acceptButton");
-  loanButton.textContent = "Pay Loan";
+  loanButton.textContent = "Apply for a Loan";
 
   // Create credit card
   const creditCard = document.createElement("div");
@@ -83,10 +83,15 @@ async function fetchUserAccounts(userId) {
   loanCard.appendChild(loanDescription);
   creditCard.appendChild(creditHeader);
   creditCard.appendChild(creditDescription);
-  if (user.is_verified) {
+  if (user.is_verified === 1) {
     savingsCard.appendChild(savingsButton);
     loanCard.appendChild(loanButton);
     creditCard.appendChild(creditButton);
+
+    savingsButton.addEventListener("click", () => {
+      localStorage.setItem("userId", user.id);
+      document.getElementById("deposit-savings").style.display = "block";
+    });
   }
 
   // Append the card to the container
@@ -99,3 +104,54 @@ async function fetchUserAccounts(userId) {
   console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 }
+
+const closedDepositBtn = document.getElementById("close-deposit-btn");
+const depositModal = document.getElementById("deposit-savings");
+
+closedDepositBtn.onclick = function () {
+  depositModal.style.display = "none";
+};
+
+document
+  .querySelector(".deposit-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const depositAmount = document.getElementById("deposit-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("deposit-amount", depositAmount);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("/deposit-savings.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deposit savings:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("deposit-savings");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });

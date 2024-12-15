@@ -188,6 +188,27 @@
         </div>
       </section>
     </main>
+
+    <div id="deposit-savings" class="deposit-modal">
+      <div class="deposit-modal-content">
+        <span class="close-deposit-btn" id="close-deposit-btn">&times;</span>
+        <h2>Deposit Savings</h2>
+        <form class="deposit-form">
+          <input
+            id="deposit-amount"
+            name="deposit-amount"
+            type="number"
+            placeholder="Amount"
+            required
+          />
+
+          <button class="deposit-to-db" name="deposit-to-db" type="submit">
+            Deposit
+          </button>
+        </form>
+      </div>
+    </div>
+
     <script src="/scripts/logout.js"></script>
     <script src="/scripts/create-user-accounts.js"></script>
     <!-- <script src="/scripts/getUserfFromLocalStorage.js"></script> -->
