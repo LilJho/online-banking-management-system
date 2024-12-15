@@ -123,13 +123,13 @@ function register($formData) {
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
-            <select id="account" name="account" required>
+            <!-- <select id="account" name="account" required>
                 <option value="">Type of Account</option>
                 <option value="savings">Savings</option>
                 <option value="credit">Credit</option>
                 <option value="loan">Loan</option>
             </select>
-            <input id="balance" name="balance" type="number" placeholder="Balance" required />
+            <input id="balance" name="balance" type="number" placeholder="Balance" required /> -->
             <input id="birthdate" type="date" id="birthdate" name="birthdate" placeholder="Birthday" required>
             <input id="phonenumber" name="phonenumber" type="text" placeholder="Phone Number" required />
             <input id="email" name="email" type="email" placeholder="Email" required />

@@ -8,8 +8,8 @@ document
     const lastname = document.getElementById("lastname").value;
     const address = document.getElementById("address").value;
     const gender = document.getElementById("gender").value;
-    const account = document.getElementById("account").value;
-    const balance = document.getElementById("balance").value;
+    // const account = document.getElementById("account").value;
+    // const balance = document.getElementById("balance").value;
     const birthdate = document.getElementById("birthdate").value;
     const phonenumber = document.getElementById("phonenumber").value;
     const email = document.getElementById("email").value;
@@ -22,8 +22,8 @@ document
     formData.append("lastName", lastname);
     formData.append("address", address);
     formData.append("gender", gender);
-    formData.append("account", account);
-    formData.append("balance", balance);
+    // formData.append("account", account);
+    // formData.append("balance", balance);
     formData.append("birthDate", birthdate);
     formData.append("phoneNumber", phonenumber);
     formData.append("email", email);
@@ -43,7 +43,8 @@ document
       console.log(result);
 
       // Refresh the announcements
-      fetchAccounts();
+      alert(result.message);
+      window.location.reload();
     } catch (error) {
       console.error("Error creating announcement:", error);
 
