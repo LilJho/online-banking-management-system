@@ -122,12 +122,14 @@ window.onload = function () {
 
     // Set verification status
     const statusDiv = document.getElementById("status");
-    if (userData.is_verified == 1) {
+    const verifyAccountBtn = document.getElementById("verify-btn");
+    if (userData.is_verified === 1) {
       statusDiv.className = "verified";
       statusDiv.innerHTML = "<span>verified</span>";
     } else {
       statusDiv.className = "not-verified";
       statusDiv.innerHTML = "<span>not-verified</span>";
+      verifyAccountBtn.style.display = "block";
     }
   }
 
