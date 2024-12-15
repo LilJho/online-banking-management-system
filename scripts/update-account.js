@@ -283,3 +283,59 @@ document.getElementById("verify-btn").addEventListener("click", async () => {
     );
   }
 });
+
+document
+  .querySelector(".forgot-password-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault();
+    // Get the email address from an input field
+    const emailInput = document.getElementById("forgot-password-email");
+    const email = emailInput.value.trim();
+
+    // Validate email input
+    if (!email) {
+      alert("Please enter your email address.");
+      return;
+    }
+
+    try {
+      // Send a POST request to the PHP script
+      const response = await fetch("/forgot_password.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({ email }),
+      });
+
+      // Parse the response
+      const result = await response.json();
+
+      // Display appropriate messages based on the response
+      if (result.status === "success") {
+        alert(result.message); // e.g., "Password reset email sent."
+      } else {
+        alert(result.message); // e.g., "No account found with this email."
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
+      console.error("Error:", error);
+    }
+  });
+
+const forgotEmailModal = document.getElementById("forgot-password");
+const emailInput = document.getElementById("forgot-password-email");
+const openForgotEmailModal = document.getElementById("forgot-password-btn");
+const closeForgotEmailModal = document.getElementById(
+  "close-forgot-password-btn"
+);
+const user = JSON.parse(localStorage.getItem("user"));
+
+openForgotEmailModal.onclick = function () {
+  emailInput.value = user.email;
+  forgotEmailModal.style.display = "block";
+};
+
+closeForgotEmailModal.onclick = function () {
+  forgotEmailModal.style.display = "none";
+};

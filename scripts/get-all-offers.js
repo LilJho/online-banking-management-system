@@ -111,4 +111,28 @@ function updatePaginationControls(totalPages, currentPage) {
 // Automatically fetch offers when the page loads
 window.onload = function () {
   fetchOffers();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const fullName =
+    user.first_name === "admin"
+      ? `${user.first_name}`
+      : `${user.first_name} ${user.last_name}`;
+
+  const createOfferBtn = document.getElementById("create-offer-btn");
+  createOfferBtn.style.display =
+    parseInt(user.isAdmin) === 1 ? "block" : "none";
+
+  const accountsLink = document.getElementById("account-page-link");
+  accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
+
+  const fullNameContainer = document.getElementById("full-name");
+  fullNameContainer.textContent = fullName;
+
+  const dashboardLink = document.getElementById("dashboard-tab");
+  user.isAdmin === 1 ? "" : (dashboardLink.style.display = "block");
+
+  const profileImage = document.getElementById("profile-img");
+  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  console.log(profileImgUrl);
+  profileImage.src = profileImgUrl;
 };
