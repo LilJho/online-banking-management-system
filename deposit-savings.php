@@ -20,13 +20,13 @@ if ($conn->connect_error) {
 // Check if the request is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = intval($_POST['id']); 
-    $depositAmount = intval($_POST['deposit-amount']); 
+    $depositAmount = floatval($_POST['deposit-amount']); 
     $accountType = 'savings';
     $status = "active";
 
     // Validate required fields
-    if (empty($userId) || empty($depositAmount)) {
-        echo json_encode(['error' => 'User ID and Deposit Amount are required']);
+    if ($userId <= 0 || $depositAmount <= 0) {
+        echo json_encode(['error' => 'Invalid User ID or Deposit Amount']);
         exit;
     }
 
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         // Update the balance if the account exists
         $user = $result->fetch_assoc();
-        $newBalance = floatval($depositAmount) + floatval($user['balance']); // Add the deposit amount to the current balance
+        $newBalance = $depositAmount + floatval($user['balance']); // Add the deposit amount to the current balance
 
         $updateDeposit = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ? AND account_type = ?");
         if (!$updateDeposit) {
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        $updateDeposit->bind_param("iis", $newBalance, $userId, $accountType);
+        $updateDeposit->bind_param("dis", $newBalance, $userId, $accountType); // Ensure data type matches
         if ($updateDeposit->execute()) {
             echo json_encode([
                 'message' => 'Balance updated successfully',
@@ -60,14 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $updateDeposit->close();
     } else {
-        // Insert a new account if it does not exist
-        $stmt = $conn->prepare("INSERT INTO accounts (user_id, account_type, balance, status) VALUES (?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO accounts ( user_id, account_type, balance, status) VALUES (?, ?, ?, ?, ?)");
         if (!$stmt) {
             echo json_encode(['error' => 'Error preparing insert statement: ' . $conn->error]);
             exit;
         }
 
-        $stmt->bind_param("isis", $userId, $accountType, $depositAmount, $status);
+        $stmt->bind_param("isss", $userId, $accountType, $depositAmount, $status);
         if ($stmt->execute()) {
             echo json_encode([
                 'message' => 'Account created and deposit added successfully',

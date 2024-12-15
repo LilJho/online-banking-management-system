@@ -17,6 +17,11 @@ if ($conn->connect_error) {
     exit;
 }
 
+// Function to generate a UUID
+function generateNumericId() {
+    return str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+}
+
 // Check if the request is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = $_POST['firstName']; 
@@ -39,14 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    $bankIdNo = generateNumericId();
+
     // Prepare and execute the SQL query for inserting user
-    $stmt = $conn->prepare("INSERT INTO users (first_name, middle_name, last_name, address, gender, birth_date, phone_number, email, pass, isAdmin, is_verified) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (first_name, middle_name, last_name, address, gender, birth_date, phone_number, email, pass, isAdmin, is_verified, bank_id_no) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         echo json_encode(['error' => 'Error preparing statement: ' . $conn->error]);
         exit;
     }
 
-    $stmt->bind_param("sssssssssii", $firstName, $middleName, $lastName, $address, $gender, $birthDate, $phoneNumber, $email, $password, $isAdmin, $is_verified);
+    $stmt->bind_param("sssssssssiis", $firstName, $middleName, $lastName, $address, $gender, $birthDate, $phoneNumber, $email, $password, $isAdmin, $is_verified, $bankIdNo);
 
     if ($stmt->execute()) {
         // Get the auto-generated user_id
@@ -67,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode([
             'user_id' => $user_id, // Return the generated user ID
             'firstName' => $firstName,
-            'message' => 'User and account created successfully.'
+            'message' => 'User account created successfully.'
         ]);
 
         // if ($accountstmt->execute()) {

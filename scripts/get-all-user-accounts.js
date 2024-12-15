@@ -36,6 +36,7 @@ async function fetchAccounts() {
     // Populate the offers container
     const tablesContainer = document.querySelector(".my_table");
     tablesContainer.innerHTML = `<tr>
+    <th>Bank ID No.</th>
     <th>Full Name</th>
     <th>Gender</th>
     <th>Email</th>
@@ -51,6 +52,9 @@ async function fetchAccounts() {
     accounts.forEach((account) => {
       // Create the offer card dynamically
       const tableRowCard = document.createElement("tr");
+
+      const bankIdNo = document.createElement("td");
+      bankIdNo.textContent = account.bank_id;
 
       // Create the table data for each piece of information
       const fullNameData = document.createElement("td");
@@ -144,6 +148,7 @@ async function fetchAccounts() {
       });
 
       // Append all data and buttons to the row
+      tableRowCard.appendChild(bankIdNo);
       tableRowCard.appendChild(fullNameData);
       tableRowCard.appendChild(genderData);
       tableRowCard.appendChild(emailData);

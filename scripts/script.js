@@ -45,7 +45,9 @@ document
         // Handle successful login (e.g., redirect to dashboard)
         localStorage.setItem("user", JSON.stringify(data.user));
         // alert('Login successful!');
-        window.location.href = "dashboard.html";
+
+        window.location.href =
+          data.user.isAdmin === 1 ? "offers-page.html" : "dashboard.html";
       } else {
         // Handle login failure (show error message)
         alert(data.message);
