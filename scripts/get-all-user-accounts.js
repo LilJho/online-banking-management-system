@@ -206,7 +206,12 @@ window.onload = function () {
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
 
   const fullNameContainer = document.getElementById("full-name");
+  const profileImage = document.getElementById("profile-img");
+  profileImage.src = profileImgUrl ?? "/images/profile.png";
   fullNameContainer.textContent = fullName;
+
+  const dashboardLink = document.getElementById("dashboard-tab");
+  user.isAdmin === 1 ? "" : (dashboardLink.style.display = "block");
 };
 
 async function fetchTopInvestorAccounts() {

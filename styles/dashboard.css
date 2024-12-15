@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap");
 
 body {
   padding: 0;
@@ -33,7 +33,7 @@ body {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
-  color: #E96472;
+  color: #e96472;
 }
 
 .user-profile {
@@ -65,8 +65,7 @@ body {
   min-width: 200px;
   min-height: 41.3rem;
   /* border-right: 1px solid gray; */
-  background-color: #E96472;
-  
+  background-color: #e96472;
 }
 
 .side-bar ul {
@@ -77,7 +76,7 @@ body {
   gap: 10px;
   list-style-type: none;
   padding-left: 15px;
-  color: white
+  color: white;
 }
 
 .side-bar ul li {
@@ -138,4 +137,12 @@ body {
   flex-direction: column;
   justify-content: start;
   align-items: center;
+}
+
+#dashboard-tab {
+  display: none;
+}
+
+#account-page-link {
+  display: none;
 }

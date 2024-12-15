@@ -120,4 +120,7 @@ window.onload = function () {
 
   const fullNameContainer = document.getElementById("full-name");
   fullNameContainer.textContent = fullName;
+
+  const dashboardLink = document.getElementById("dashboard-tab");
+  user.isAdmin === 1 ? "" : (dashboardLink.style.display = "block");
 };

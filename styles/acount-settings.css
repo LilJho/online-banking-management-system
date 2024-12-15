@@ -1,323 +1,331 @@
 .main-content .main-card .account-details-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 65rem;
-    height: 38rem;
-    border: 1px solid lightgray;
-    position: relative;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 65rem;
+  height: 38rem;
+  border: 1px solid lightgray;
+  position: relative;
+  border-radius: 10px;
 }
 .main-content .main-card .account-details-card img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 .main-content .main-card .account-details-card .account-name-birthday {
-    padding-top: 5px;
-    text-align: center;
-    /* display: flex;
+  padding-top: 5px;
+  text-align: center;
+  /* display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center; */
 }
 
 .main-content .main-card .account-details-card .account-name-birthday p {
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
 }
 .main-content .main-card .account-details-card .account-name-birthday span {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .main-content .main-card .account-details-card .account-info-card {
-    width: 44rem;
-    height: 20rem;
-    /* border: 1px solid red; */
-    margin-top: 1rem;
+  width: 44rem;
+  height: 20rem;
+  /* border: 1px solid red; */
+  margin-top: 1rem;
 }
 
 .account-info-card ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
-    gap: 1rem; /* Adds space between items */
-    padding: 0;
-    margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  gap: 1rem; /* Adds space between items */
+  padding: 0;
+  margin: 0;
 }
 
 .account-info-card li {
-    list-style-type: none;
-    text-align: center;
-    font-size: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  list-style-type: none;
+  text-align: center;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .account-info-card ul li p {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .account-info-card ul li .not-verified {
-    text-align: center;
-    background-color: red;
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50%;
-    width: auto;
+  text-align: center;
+  background-color: red;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50%;
+  width: auto;
 }
 
 .account-info-card ul li .verified {
-    text-align: center;
-    background-color: green;
-    color: white;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50%;
-    width: auto;
+  text-align: center;
+  background-color: green;
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50%;
+  width: auto;
 }
 
 .main-content .main-card .account-details-card .update-button-container {
-    position: absolute;
-    right: 2rem;
-    bottom: 2rem;
+  position: absolute;
+  right: 2rem;
+  bottom: 2rem;
 }
 
 .main-content .main-card .account-details-card .update-button {
-    background-color: #B8860B; /* Dark Gold background */
-    color: white; /* White text */
-    border: none; /* Remove the default border */
-    padding: 10px 20px; /* Some padding for the button */
-    font-size: 16px; /* Set font size */
-    cursor: pointer; /* Show pointer on hover */
-    border-radius: 5px; /* Slightly rounded corners */
-    transition: background-color 0.3s ease; /* Smooth transition for background color */
-    outline: none; /* Remove focus outline (optional) */
-    text-align: center; /* Ensure text is centered */
+  background-color: #b8860b; /* Dark Gold background */
+  color: white; /* White text */
+  border: none; /* Remove the default border */
+  padding: 10px 20px; /* Some padding for the button */
+  font-size: 16px; /* Set font size */
+  cursor: pointer; /* Show pointer on hover */
+  border-radius: 5px; /* Slightly rounded corners */
+  transition: background-color 0.3s ease; /* Smooth transition for background color */
+  outline: none; /* Remove focus outline (optional) */
+  text-align: center; /* Ensure text is centered */
 }
 
 .main-content .main-card .account-details-card .update-button:hover {
-    background-color: #DAA520; /* Lighter gold when hovering */
+  background-color: #daa520; /* Lighter gold when hovering */
 }
 
 .main-content .main-card .account-details-card .update-button:focus {
-    outline: none; /* Remove focus outline when button is focused (optional) */
+  outline: none; /* Remove focus outline when button is focused (optional) */
 }
 
 /* Modal styles */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
 }
 
 .modal-content {
-    background-color: white;
-    margin: 8% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    max-width: 500px;
-    text-align: center;
-    position: relative;
+  background-color: white;
+  margin: 8% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
 }
 
 .close-button {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .close-button:hover,
 .close-button:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 form {
-    background-color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 0 50px;
-    height: 100%;
-    text-align: center;
-  }
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 50px;
+  height: 100%;
+  text-align: center;
+}
 
-  input {
-    background-color: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%;
-  }
+input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
 
-  .update-btn {
-    border-radius: 10px;
-    border: 1px solid #B8860B;
-    background-color: #B8860B;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 11.5rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    margin-top: 2rem;
-  }
-  
-  .update-btn:active {
-    transform: scale(0.95);
-  }
-  
-  .update-btn:focus {
-    outline: none;
-  }
-  
-  .update-btn.ghost {
-    background-color: transparent;
-    border-color: #ffffff;
-  }
+.update-btn {
+  border-radius: 10px;
+  border: 1px solid #b8860b;
+  background-color: #b8860b;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 11.5rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin-top: 2rem;
+}
 
-  .update-profile-picture {
-    border-radius: 10px;
-    border: 1px solid #28a745; /* Green border */
-    background-color: #28a745; /* Green background */
-    color: #ffffff;
-    font-size: 8px;
-    font-weight: bold;
-    padding: 6px 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
+.update-btn:active {
+  transform: scale(0.95);
+}
+
+.update-btn:focus {
+  outline: none;
+}
+
+.update-btn.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+.update-profile-picture {
+  border-radius: 10px;
+  border: 1px solid #28a745; /* Green border */
+  background-color: #28a745; /* Green background */
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 6px 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
 }
 
 /* Modal styles */
 .modal-profile-picture {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
 }
 
 .modal-content-profile-picture {
-    background-color: white;
-    margin: 8% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%;
-    max-width: 35rem;
-    text-align: center;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+  background-color: white;
+  margin: 8% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%;
+  max-width: 35rem;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 .close-button-profile-picture {
-    color: #aaa;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    cursor: pointer;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
 }
 
 .close-button-profile-picture:hover,
 .close-button-profile-picture:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .update-profile-picture-to-db {
-    border-radius: 10px;
-    border: 1px solid #28a745;
-    background-color: #28a745;
-    color: #ffffff;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 12px 8rem;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: transform 80ms ease-in;
-    margin-top: 2rem;
-  }
-  
-  .update-profile-picture-to-db:active {
-    transform: scale(0.95);
-  }
-  
-  .update-profile-picture-to-db:focus {
-    outline: none;
-  }
-  
-  .update-profile-picture-to-db.ghost {
-    background-color: transparent;
-    border-color: #ffffff;
-  }
+  border-radius: 10px;
+  border: 1px solid #28a745;
+  background-color: #28a745;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px 8rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: transform 80ms ease-in;
+  margin-top: 2rem;
+}
 
-  .update-profile-picture-form {
-    width: 30rem;
-    height: 30rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    /* border: 1px solid red; */
-  }
+.update-profile-picture-to-db:active {
+  transform: scale(0.95);
+}
 
-  .update-profile-picture-form .img-container {
-    width: 40%; /* Set the container's width */
-    height: 40%; /* Set the container's height */
-    border: 1px solid gray;
-    margin-top: 2.5rem; /* Top margin for spacing */
-    overflow: hidden; /* Ensure no overflow outside the container */
-    display: flex; /* Center-align the image */
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
+.update-profile-picture-to-db:focus {
+  outline: none;
+}
+
+.update-profile-picture-to-db.ghost {
+  background-color: transparent;
+  border-color: #ffffff;
+}
+
+.update-profile-picture-form {
+  width: 30rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.update-profile-picture-form .img-container {
+  width: 40%; /* Set the container's width */
+  height: 40%; /* Set the container's height */
+  border: 1px solid gray;
+  margin-top: 2.5rem; /* Top margin for spacing */
+  overflow: hidden; /* Ensure no overflow outside the container */
+  display: flex; /* Center-align the image */
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
 }
 
 .update-profile-picture-form .img-container img {
-    width: 100%; /* Match the container's width */
-    height: auto; /* Maintain aspect ratio */
-    max-height: 100%; /* Prevent vertical overflow */
-    object-fit: cover; /* Ensure the image fits within the container */
+  width: 100%; /* Match the container's width */
+  height: auto; /* Maintain aspect ratio */
+  max-height: 100%; /* Prevent vertical overflow */
+  object-fit: cover; /* Ensure the image fits within the container */
 }
 
-  .update-profile-picture-form .update-profile-picture-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    justify-content: center;
-    align-items: center;
-    margin-top: 1rem;
-  }
+.update-profile-picture-form .update-profile-picture-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
 
-  .update-profile-picture-form .update-profile-picture-detail input {
-    background-color: #eee;
-    border: none;
-    padding: 12px 15px;
-    margin: 8px 0;
-    width: 100%;
-  }
+.update-profile-picture-form .update-profile-picture-detail input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+#account-page-link {
+  display: none;
+}
+
+#dashboard-tab {
+  display: none;
+}

@@ -597,3 +597,11 @@ tr:hover {
   text-decoration: none;
   cursor: pointer;
 }
+
+#account-page-link {
+  display: none;
+}
+
+#dashboard-tab {
+  display: none;
+}

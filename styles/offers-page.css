@@ -339,3 +339,11 @@
   margin: 8px 0;
   width: 100%;
 }
+
+#dashboard-tab {
+  display: none;
+}
+
+#account-page-link {
+  display: none;
+}

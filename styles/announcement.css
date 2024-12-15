@@ -322,3 +322,11 @@ h4 {
     font-size: inherit;    /* Match font size with input fields */
     box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
+
+#account-page-link {
+  display: none;
+}
+
+#dashboard-tab {
+  display: none;
+}
