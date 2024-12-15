@@ -142,11 +142,11 @@ function register($formData) {
     <h1>Sign in</h1>
     <input name="login_email" type="email" placeholder="Email" required />
     <input name="login_pass" type="password" placeholder="Password" required />
-    <a href="#">Forgot your password?</a>
+    <button type="button" id="forgot-password-btn">Forgot your password?</button>
     <button type="submit">Sign In</button>
 </form>
+</div>
 
-    </div>
     <div class="overlay-container">
         <div class="overlay">
             <div class="overlay-panel overlay-left">
@@ -162,6 +162,25 @@ function register($formData) {
         </div>
     </div>
 </div>
+
+<div id="forgot-password" class="forgot-password-modal">
+      <div class="forgot-password-modal-content">
+        <span class="close-forgot-password-btn" id="close-forgot-password-btn">&times;</span>
+        <h2>Enter Email</h2>
+        <form class="forgot-password-form">
+          <input
+            id="forgot-password-email"
+            name="forgot-password-email"
+            type="email"
+            placeholder="Email"
+            required
+          />
+          <button class="forgot-password-to-db" name="forgot-password-to-db" type="submit">
+            Send
+          </button>
+        </form>
+      </div>
+    </div>
 <!-- partial -->
   <script  src="./scripts/script.js">
   </script>
