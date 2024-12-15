@@ -253,3 +253,33 @@ document
       }
     }
   });
+
+document.getElementById("verify-btn").addEventListener("click", async () => {
+  // Retrieve email and user details from the DOM or localStorage
+  const email = document.getElementById("email").textContent; // Replace with actual element containing email
+  const user = JSON.parse(localStorage.getItem("user")); // Assume user object is stored in localStorage
+  const userId = user?.id; // Extract user ID from the localStorage object
+
+  if (!email || !userId) {
+    alert("Missing email or user ID. Cannot send verification email.");
+    return;
+  }
+
+  try {
+    // Send POST request to the backend
+    const response = await fetch("/send_verification_email.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ email, user_id: userId }), // Send both email and user_id
+    });
+
+    // Parse the JSON response
+    const result = await response.json();
+    alert(result.message); // Display success or error message
+    window.location.href = "authentication.php";
+  } catch (error) {
+    alert(
+      "An error occurred while sending the verification email. Please try again."
+    );
+  }
+});
