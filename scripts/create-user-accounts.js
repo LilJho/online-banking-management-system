@@ -74,7 +74,7 @@ async function fetchUserAccounts(userId) {
 
   const creditButton = document.createElement("button");
   creditButton.classList.add("acceptButton");
-  creditButton.textContent = "Pay Credit";
+  creditButton.textContent = "Apply for a credit";
 
   // Append elements to the card
   savingsCard.appendChild(savingsHeader);
@@ -96,6 +96,11 @@ async function fetchUserAccounts(userId) {
     loanButton.addEventListener("click", () => {
       localStorage.setItem("userId", user.id);
       document.getElementById("loan").style.display = "block";
+    });
+
+    creditCard.addEventListener("click", () => {
+      localStorage.setItem("userId", user.id);
+      document.getElementById("credit").style.display = "block";
     });
   }
 
@@ -206,6 +211,57 @@ document
       }
     } finally {
       const depositModal = document.getElementById("loan");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });
+
+const closedCreditBtn = document.getElementById("close-credit-btn");
+const creditModal = document.getElementById("credit");
+
+closedCreditBtn.onclick = function () {
+  creditModal.style.display = "none";
+};
+
+document
+  .querySelector(".credit-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const creditAmount = document.getElementById("credit-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("credit-amount", creditAmount);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("/credit.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      window.location.reload();
+    } catch (error) {
+      console.error("Error credit savings:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("credit");
       if (modal) {
         depositModal.style.display = "none";
       }
