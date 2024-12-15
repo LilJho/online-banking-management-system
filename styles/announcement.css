@@ -330,3 +330,7 @@ h4 {
 #dashboard-tab {
   display: none;
 }
+
+#profile-img {
+  border-radius: 50%;
+}

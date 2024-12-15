@@ -93,4 +93,9 @@ async function fetchUserAccounts(userId) {
   container.appendChild(savingsCard);
   container.appendChild(loanCard);
   container.appendChild(creditCard);
+
+  const profileImage = document.getElementById("profile-img");
+  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  console.log(profileImgUrl);
+  profileImage.src = profileImgUrl;
 }

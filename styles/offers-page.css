@@ -347,3 +347,6 @@
 #account-page-link {
   display: none;
 }
+#profile-img {
+  border-radius: 50%;
+}

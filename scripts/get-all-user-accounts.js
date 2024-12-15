@@ -205,9 +205,12 @@ window.onload = function () {
   const accountsLink = document.getElementById("account-page-link");
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
 
-  const fullNameContainer = document.getElementById("full-name");
   const profileImage = document.getElementById("profile-img");
-  profileImage.src = profileImgUrl ?? "/images/profile.png";
+  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  console.log(profileImgUrl);
+  profileImage.src = profileImgUrl;
+
+  const fullNameContainer = document.getElementById("full-name");
   fullNameContainer.textContent = fullName;
 
   const dashboardLink = document.getElementById("dashboard-tab");

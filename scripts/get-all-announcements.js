@@ -126,4 +126,9 @@ window.onload = function () {
 
   const dashboardLink = document.getElementById("dashboard-tab");
   user.isAdmin === 1 ? "" : (dashboardLink.style.display = "block");
+
+  const profileImage = document.getElementById("profile-img");
+  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  console.log(profileImgUrl);
+  profileImage.src = profileImgUrl;
 };
