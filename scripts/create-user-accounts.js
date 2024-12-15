@@ -92,6 +92,11 @@ async function fetchUserAccounts(userId) {
       localStorage.setItem("userId", user.id);
       document.getElementById("deposit-savings").style.display = "block";
     });
+
+    loanButton.addEventListener("click", () => {
+      localStorage.setItem("userId", user.id);
+      document.getElementById("loan").style.display = "block";
+    });
   }
 
   // Append the card to the container
@@ -150,6 +155,57 @@ document
       }
     } finally {
       const depositModal = document.getElementById("deposit-savings");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });
+
+const closedLoanBtn = document.getElementById("close-loan-btn");
+const loadModal = document.getElementById("loan");
+
+closedLoanBtn.onclick = function () {
+  loadModal.style.display = "none";
+};
+
+document
+  .querySelector(".loan-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const loanAmount = document.getElementById("loan-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("loan-amount", loanAmount);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("/loan.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      window.location.reload();
+    } catch (error) {
+      console.error("Error loan savings:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("loan");
       if (modal) {
         depositModal.style.display = "none";
       }

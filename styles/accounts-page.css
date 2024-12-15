@@ -278,7 +278,7 @@ tr:hover {
   border-radius: 4px; /* Optional: add rounded corners for a consistent look */
 }
 
-/* deposit modal */
+/* withdraw modal */
 .withdraw-modal {
   display: none; /* Hidden by default */
   position: fixed;
@@ -370,7 +370,7 @@ tr:hover {
   border-radius: 4px; /* Optional: add rounded corners for a consistent look */
 }
 
-/* Loan modal */
+/* apply Loan modal */
 .loan-modal {
   display: none; /* Hidden by default */
   position: fixed;
