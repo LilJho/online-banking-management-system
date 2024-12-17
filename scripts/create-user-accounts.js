@@ -135,7 +135,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/deposit-savings.php", {
+      const response = await fetch("deposit-savings.php", {
         method: "POST",
         body: formData,
       });
@@ -186,7 +186,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/loan.php", {
+      const response = await fetch("loan.php", {
         method: "POST",
         body: formData,
       });
@@ -237,7 +237,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/credit.php", {
+      const response = await fetch("credit.php", {
         method: "POST",
         body: formData,
       });

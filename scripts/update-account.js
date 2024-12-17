@@ -274,7 +274,7 @@ document.getElementById("verify-btn").addEventListener("click", async () => {
 
   try {
     // Send POST request to the backend
-    const response = await fetch("/send_verification_email.php", {
+    const response = await fetch("send_verification_email.php", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: new URLSearchParams({ email, user_id: userId }), // Send both email and user_id
@@ -307,7 +307,7 @@ document
 
     try {
       // Send a POST request to the PHP script
-      const response = await fetch("/forgot_password.php", {
+      const response = await fetch("forgot_password.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -338,9 +338,7 @@ const closeForgotEmailModal = document.getElementById(
 );
 const user = JSON.parse(localStorage.getItem("user"));
 
-user.isAdmin === 1 || user.is_verified === 1
-  ? (openForgotEmailModal.style.display = "none")
-  : "";
+user.isAdmin === 1 ? (openForgotEmailModal.style.display = "none") : "";
 
 openForgotEmailModal.onclick = function () {
   emailInput.value = user.email;

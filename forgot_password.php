@@ -88,7 +88,7 @@ try {
 
     // Generate a unique reset token
     $resetToken = bin2hex(random_bytes(16));
-    $resetLink = "http://localhost:8000/reset_password.php?token=$resetToken";
+    $resetLink = "http://localhost/online-banking-management-system/reset_password.php?token=$resetToken";
 
     // Save the reset token in the database
     $updateQuery = $conn->prepare("UPDATE users SET reset_token = ?, reset_expires = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = ?");

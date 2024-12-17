@@ -65,6 +65,7 @@ try {
 
         echo "<h1>Password Reset Successfully!</h1>";
         echo "<p>Your password has been updated. You can now log in with your new password.</p>";
+        header("refresh:3;url=authentication.php");
     }
 } catch (Exception $e) {
     echo "<h1>Error</h1>";
