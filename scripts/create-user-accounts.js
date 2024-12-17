@@ -110,7 +110,7 @@ async function fetchUserAccounts(userId) {
   container.appendChild(creditCard);
 
   const profileImage = document.getElementById("profile-img");
-  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
   console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 }

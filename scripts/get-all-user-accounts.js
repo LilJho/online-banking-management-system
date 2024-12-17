@@ -236,7 +236,7 @@ window.onload = function () {
 
   const profileImage = document.getElementById("profile-img");
   const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
-  console.log(profileImgUrl);
+  // console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 
   const fullNameContainer = document.getElementById("full-name");
