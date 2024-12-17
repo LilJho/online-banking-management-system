@@ -281,3 +281,54 @@ openTopInvestorsTabBtn.onclick = function () {
 closedTopInvestorsTabBtn.onclick = function () {
   topInvestorModal.style.display = "none";
 };
+
+const closedCreditBtn = document.getElementById("close-credit-btn");
+const creditModal = document.getElementById("apply-credit");
+
+closedCreditBtn.onclick = function () {
+  creditModal.style.display = "none";
+};
+
+document
+  .querySelector(".credit-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const creditAmount = document.getElementById("credit-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("credit-amount", creditAmount);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("credit.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      window.location.reload();
+    } catch (error) {
+      console.error("Error credit savings:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("credit");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });
