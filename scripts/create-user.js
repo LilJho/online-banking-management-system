@@ -332,3 +332,54 @@ document
       }
     }
   });
+
+const closedPayCreditBtn = document.getElementById("close-pay-credit-btn");
+const payCreditModal = document.getElementById("pay-credit");
+
+closedPayCreditBtn.onclick = function () {
+  payCreditModal.style.display = "none";
+};
+
+document
+  .querySelector(".pay-credit-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const creditPayment = document.getElementById("pay-credit-amount").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("credit-payment", creditPayment);
+    formData.append("id", userId);
+
+    try {
+      const response = await fetch("pay-credit.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      fetchAccounts();
+    } catch (error) {
+      console.error("Error pay Credit:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const depositModal = document.getElementById("pay-credit");
+      if (modal) {
+        depositModal.style.display = "none";
+      }
+    }
+  });

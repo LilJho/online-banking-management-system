@@ -46,6 +46,7 @@ async function fetchAccounts() {
     <th>Loan</th>
     <th>Pay Loan</th>
     <th>Apply Credit</th>
+    <th>Pay Credit</th>
   </tr>`;
 
     accounts.forEach((account) => {
@@ -157,6 +158,17 @@ async function fetchAccounts() {
         document.getElementById("apply-credit").style.display = "block";
       });
 
+      const payCreditData = document.createElement("td");
+      const payCreditBtn = document.createElement("button");
+      payCreditBtn.textContent = "Pay Credit";
+
+      payCreditData.appendChild(payCreditBtn);
+
+      payCreditBtn.addEventListener("click", () => {
+        localStorage.setItem("userId", account.id);
+        document.getElementById("pay-credit").style.display = "block";
+      });
+
       // Append all data and buttons to the row
       tableRowCard.appendChild(bankIdNo);
       tableRowCard.appendChild(fullNameData);
@@ -173,6 +185,7 @@ async function fetchAccounts() {
       tableRowCard.appendChild(loanData); // Block button in its own td
       tableRowCard.appendChild(payLoanData); // Block button in its own td
       tableRowCard.appendChild(applyCreditData); // Block button in its own td
+      tableRowCard.appendChild(payCreditData); // Block button in its own td
 
       // Append the offer card to the container
       tablesContainer.appendChild(tableRowCard);
