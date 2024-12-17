@@ -40,9 +40,16 @@ async function fetchUserAccounts(userId) {
   savingsDescription.classList.add("cookieDescription");
   savingsDescription.textContent = `Your Current Savings are: ${data.savings}`;
 
+  const savingsButtonContainer = document.createElement("div");
+  savingsButtonContainer.classList.add("btnContainer");
+
   const savingsButton = document.createElement("button");
   savingsButton.classList.add("acceptButton");
   savingsButton.textContent = "Deposit";
+
+  const transferSavingsButton = document.createElement("button");
+  transferSavingsButton.classList.add("acceptButton");
+  transferSavingsButton.textContent = "Transfer";
 
   // Create loan card
   const loanCard = document.createElement("div");
@@ -84,13 +91,20 @@ async function fetchUserAccounts(userId) {
   creditCard.appendChild(creditHeader);
   creditCard.appendChild(creditDescription);
   if (user.is_verified === 1) {
-    savingsCard.appendChild(savingsButton);
+    savingsButtonContainer.appendChild(savingsButton);
+    savingsButtonContainer.appendChild(transferSavingsButton);
+    savingsCard.appendChild(savingsButtonContainer);
     loanCard.appendChild(loanButton);
     creditCard.appendChild(creditButton);
 
     savingsButton.addEventListener("click", () => {
       localStorage.setItem("userId", user.id);
       document.getElementById("deposit-savings").style.display = "block";
+    });
+
+    transferSavingsButton.addEventListener("click", () => {
+      localStorage.setItem("userId", user.id);
+      document.getElementById("transfer-savings").style.display = "block";
     });
 
     loanButton.addEventListener("click", () => {
@@ -265,5 +279,107 @@ document
       if (modal) {
         depositModal.style.display = "none";
       }
+    }
+  });
+
+const closedTransferBtn = document.getElementById("close-transfer-btn");
+const transferModal = document.getElementById("transfer-savings");
+
+closedTransferBtn.onclick = function () {
+  transferModal.style.display = "none";
+};
+
+document
+  .querySelector(".transfer-form")
+  .addEventListener("submit", async function (event) {
+    event.preventDefault(); // Prevent default form submission behavior
+
+    const depositAmount = document.getElementById("transfer-amount").value;
+    const destinationBankId = document.getElementById("transfer-bank-id").value;
+    const userId = localStorage.getItem("userId");
+
+    const formData = new FormData();
+    formData.append("transfer-amount", depositAmount);
+    formData.append("bank_id_no", destinationBankId);
+    formData.append("id", userId);
+
+    console.log(depositAmount);
+    console.log(destinationBankId);
+    console.log(userId);
+
+    try {
+      const response = await fetch("transfer-savings.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json(); // Parse the JSON response
+      console.log(result);
+
+      // Refresh the announcements
+      window.location.reload();
+    } catch (error) {
+      console.error("Error transfer savings:", error);
+
+      // Additional debugging for non-JSON responses
+      if (error.response) {
+        console.error("Error response:", error.response);
+      } else {
+        console.error("Error message:", error.message);
+      }
+    } finally {
+      const transferModal = document.getElementById("transfer-savings");
+      if (transferModal) {
+        transferModal.style.display = "none";
+      }
+    }
+  });
+
+document
+  .getElementById("toggle-status-btn")
+  .addEventListener("click", async function () {
+    const userId = localStorage.getItem("userId"); // Assuming you fetch user_id from localStorage
+    const button = document.getElementById("toggle-status-btn");
+
+    if (!userId || isNaN(userId)) {
+      console.error("Invalid User ID");
+      alert("User ID is invalid or not set!");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("user_id", userId);
+
+    try {
+      // Send the request to PHP
+      const response = await fetch("toggle-account-status.php", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result.error) {
+        console.error("Error:", result.error);
+        alert(`Error: ${result.error}`);
+      } else {
+        console.log(result.message);
+        alert(result.message);
+
+        // Update button text dynamically
+        button.textContent =
+          result.new_status === "locked" ? "Unlock Account" : "Lock Account";
+      }
+    } catch (error) {
+      console.error("Error toggling account status:", error.message);
+      alert("Failed to toggle account status. Please try again.");
     }
   });
