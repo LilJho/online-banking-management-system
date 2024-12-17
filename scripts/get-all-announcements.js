@@ -1,7 +1,7 @@
 // Fetch all offers from the server
 async function fetchAnnouncements() {
   try {
-    const response = await fetch("/get-all-announcements.php"); // Adjust the path to your PHP file
+    const response = await fetch("get-all-announcements.php"); // Adjust the path to your PHP file
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -60,22 +60,35 @@ async function fetchAnnouncements() {
       announcementsContainer.appendChild(announcementCard);
 
       updateBtn.addEventListener("click", () => {
-        // console.log({announcement})
-        document.getElementById("update-announcement").style.display = "block";
-        // Populate the modal with the offer details
-        // document.getElementById('edit-offer-id').value = offer.id;
-        document.getElementById("edit-announcement-title").value =
-          announcement.title;
-        document.getElementById("edit-announcement-description").value =
-          announcement.description;
-        sessionStorage.setItem("announcementId", announcement.id);
+        console.log("Announcement Object:", announcement);
+
+        // Check if the modal element exists
+        const updateModal = document.getElementById("update-announcement");
+        updateModal.style.display = "block"; // Display the modal
+
+        // Populate the modal fields with announcement details
+        const titleInput = document.getElementById("edit-announcement-title");
+        const descriptionInput = document.getElementById(
+          "edit-announcement-description"
+        );
+
+        if (titleInput && descriptionInput) {
+          titleInput.value = announcement.title || ""; // Default to empty string if undefined
+          descriptionInput.value = announcement.description || "";
+        }
+
+        // Save the announcement ID in sessionStorage
+        if (announcement.id) {
+          sessionStorage.setItem("announcementId", announcement.id);
+        }
       });
+
       deleteBtn.addEventListener("click", async () => {
         const formData = new FormData();
         formData.append("id", announcement.id);
 
         try {
-          const response = await fetch("/delete-announcement.php", {
+          const response = await fetch("delete-announcement.php", {
             // Replace with your actual endpoint
             method: "POST",
             body: formData,
@@ -128,7 +141,7 @@ window.onload = function () {
   user.isAdmin === 1 ? "" : (dashboardLink.style.display = "block");
 
   const profileImage = document.getElementById("profile-img");
-  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
   console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 };

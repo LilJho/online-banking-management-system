@@ -3,7 +3,7 @@ let currentPage = 1;
 // Fetch all offers from the server
 async function fetchOffers(page = 1) {
   try {
-    const response = await fetch(`/get-all-offers.php?page=${page}`);
+    const response = await fetch(`get-all-offers.php?page=${page}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -67,7 +67,7 @@ async function fetchOffers(page = 1) {
         formData.append("id", offer.id);
 
         try {
-          const response = await fetch("/delete-offer.php", {
+          const response = await fetch("delete-offer.php", {
             method: "POST",
             body: formData,
           });
@@ -132,7 +132,7 @@ window.onload = function () {
   user.isAdmin === 1 ? "" : (dashboardLink.style.display = "block");
 
   const profileImage = document.getElementById("profile-img");
-  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
   console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 };

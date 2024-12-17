@@ -138,7 +138,7 @@ window.onload = function () {
     user.first_name === "admin"
       ? `${user.first_name}`
       : `${user.first_name} ${user.last_name}`;
-  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
 
   const accountsLink = document.getElementById("account-page-link");
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
@@ -149,7 +149,7 @@ window.onload = function () {
     "profile-img-account-settings"
   );
   profileImage.src = profileImgUrl;
-  accountSettingsImage.src = profileImgUrl ?? "/images/profile.png";
+  accountSettingsImage.src = profileImgUrl ?? "images/profile.png";
   fullNameContainer.textContent = fullName;
 
   const dashboardLink = document.getElementById("dashboard-tab");
@@ -214,13 +214,20 @@ document
     const imageUpload = document.getElementById("image-upload");
     const userId = JSON.parse(localStorage.getItem("user")).id; // Get the user ID from localStorage
 
+    if (imageUpload && imageUpload.files && imageUpload.files[0]) {
+      const uploadedFile = imageUpload.files[0];
+      console.log(`File size: ${uploadedFile.size} bytes`);
+    } else {
+      console.log("No file selected.");
+    }
+
     // Check if a file is selected
     if (imageUpload.files.length > 0) {
       formData.append("profile_picture", imageUpload.files[0]);
       formData.append("user_id", userId); // Append the user ID to the form data
 
       try {
-        const response = await fetch("/upload-profile-picture.php", {
+        const response = await fetch("upload-profile-picture.php", {
           method: "POST",
           body: formData,
         });
@@ -330,6 +337,10 @@ const closeForgotEmailModal = document.getElementById(
   "close-forgot-password-btn"
 );
 const user = JSON.parse(localStorage.getItem("user"));
+
+user.isAdmin === 1 || user.is_verified === 1
+  ? (openForgotEmailModal.style.display = "none")
+  : "";
 
 openForgotEmailModal.onclick = function () {
   emailInput.value = user.email;

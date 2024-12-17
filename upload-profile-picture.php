@@ -37,7 +37,7 @@ if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] ===
     // Move the uploaded file to the desired location
     if (move_uploaded_file($fileTmpPath, $newFilePath)) {
         // Image URL relative to the server
-        $imageUrl = '/uploads/profile-pictures/' . basename($newFilePath);
+        $imageUrl = 'uploads/profile-pictures/' . basename($newFilePath);
 
         // Get the user ID passed from the frontend (through FormData)
         $userId = $_POST['user_id'];  // This will get the user_id from the FormData

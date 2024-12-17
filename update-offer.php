@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['new-offer-image']) &
 
     // Move the file to the upload directory
     if (move_uploaded_file($fileTmpName, $uploadPath)) {
-        $imageUrl = '/' . $uploads_dir . '/' . $newFileName; // Use relative path
+        $imageUrl = $uploads_dir . '/' . $newFileName; // Use relative path
 
         // Prepare the SQL statement for updating
         $stmt = $conn->prepare("UPDATE offers SET title = ?, image_url = ? WHERE id = ?");

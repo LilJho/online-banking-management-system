@@ -24,7 +24,7 @@ window.onclick = function (event) {
 // Fetch all offers from the server
 async function fetchAccounts() {
   try {
-    const response = await fetch("/get-all-user-accounts.php"); // Adjust the path to your PHP file
+    const response = await fetch("get-all-user-accounts.php"); // Adjust the path to your PHP file
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -54,7 +54,7 @@ async function fetchAccounts() {
       const tableRowCard = document.createElement("tr");
 
       const bankIdNo = document.createElement("td");
-      bankIdNo.textContent = account.bank_id;
+      bankIdNo.textContent = account.bank_id_no;
 
       // Create the table data for each piece of information
       const fullNameData = document.createElement("td");
@@ -173,7 +173,7 @@ async function fetchAccounts() {
 
 async function handleAction(userId, action) {
   try {
-    const response = await fetch("/block-archive-user.php", {
+    const response = await fetch("block-archive-user.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -211,7 +211,7 @@ window.onload = function () {
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
 
   const profileImage = document.getElementById("profile-img");
-  const profileImgUrl = user.img_url ? user.img_url : "/images/profile.png";
+  const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
   console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 
@@ -224,7 +224,7 @@ window.onload = function () {
 
 async function fetchTopInvestorAccounts() {
   try {
-    const response = await fetch("/get-all-top-investors-accounts.php"); // Adjust the path to your PHP file
+    const response = await fetch("get-all-top-investors-accounts.php"); // Adjust the path to your PHP file
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

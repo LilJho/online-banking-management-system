@@ -182,8 +182,8 @@ function register($formData) {
       </div>
     </div>
 <!-- partial -->
-  <script  src="./scripts/script.js">
+  <script  src="scripts/script.js">
   </script>
-  <script src="/scripts/create-user.js"></script>
+  <script src="scripts/create-user.js"></script>
 </body>
 </html>

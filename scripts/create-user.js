@@ -30,7 +30,7 @@ document
     formData.append("password", password);
 
     try {
-      const response = await fetch("/create-user.php", {
+      const response = await fetch("create-user.php", {
         method: "POST",
         body: formData,
       });
@@ -82,7 +82,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/deposit-savings.php", {
+      const response = await fetch("deposit-savings.php", {
         method: "POST",
         body: formData,
       });
@@ -133,7 +133,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/withdraw.php", {
+      const response = await fetch("withdraw.php", {
         method: "POST",
         body: formData,
       });
@@ -184,7 +184,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/loan.php", {
+      const response = await fetch("loan.php", {
         method: "POST",
         body: formData,
       });
@@ -235,7 +235,7 @@ document
     formData.append("id", userId);
 
     try {
-      const response = await fetch("/pay-loan.php", {
+      const response = await fetch("pay-loan.php", {
         method: "POST",
         body: formData,
       });
