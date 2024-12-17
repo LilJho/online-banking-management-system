@@ -15,7 +15,7 @@ window.onload = function () {
 };
 
 async function fetchUserAccounts(userId) {
-  const response = await fetch("/get-user-accounts.php", {
+  const response = await fetch("get-user-accounts.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",

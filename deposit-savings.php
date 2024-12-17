@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $updateDeposit->close();
     } else {
-        $stmt = $conn->prepare("INSERT INTO accounts ( user_id, account_type, balance, status) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $conn->prepare("INSERT INTO accounts ( user_id, account_type, balance, status) VALUES (?, ?, ?, ?)");
         if (!$stmt) {
             echo json_encode(['error' => 'Error preparing insert statement: ' . $conn->error]);
             exit;
