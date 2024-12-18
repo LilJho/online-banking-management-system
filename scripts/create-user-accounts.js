@@ -51,6 +51,11 @@ async function fetchUserAccounts(userId) {
   transferSavingsButton.classList.add("acceptButton");
   transferSavingsButton.textContent = "Transfer";
 
+  const toggleSavingsButton = document.createElement("button");
+  toggleSavingsButton.classList.add("acceptButton");
+  toggleSavingsButton.textContent =
+    data.savingsStatus === "active" ? "lock" : "unlock";
+
   // Create loan card
   const loanCard = document.createElement("div");
   loanCard.classList.add("cookieCard");
@@ -91,8 +96,45 @@ async function fetchUserAccounts(userId) {
   creditCard.appendChild(creditHeader);
   creditCard.appendChild(creditDescription);
   if (user.is_verified === 1) {
-    savingsButtonContainer.appendChild(savingsButton);
-    savingsButtonContainer.appendChild(transferSavingsButton);
+    if (data.savingsStatus === "active") {
+      savingsButtonContainer.appendChild(savingsButton);
+      savingsButtonContainer.appendChild(transferSavingsButton);
+    }
+    if (data.savingsStatus !== "no account yet") {
+      savingsButtonContainer.appendChild(toggleSavingsButton);
+
+      toggleSavingsButton.addEventListener("click", async () => {
+        const formData = new FormData();
+        formData.append("user_id", user.id);
+
+        try {
+          // Send the request to PHP
+          const response = await fetch("toggle-account-status.php", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const result = await response.json();
+
+          if (result.error) {
+            console.error("Error:", result.error);
+            alert(`Error: ${result.error}`);
+          } else {
+            console.log(result.message);
+            alert(result.message);
+
+            window.location.reload();
+          }
+        } catch (error) {
+          console.error("Error toggling account status:", error.message);
+          alert("Failed to toggle account status. Please try again.");
+        }
+      });
+    }
     savingsCard.appendChild(savingsButtonContainer);
     loanCard.appendChild(loanButton);
     creditCard.appendChild(creditButton);

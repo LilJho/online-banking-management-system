@@ -351,6 +351,8 @@
 }
 
 .pagination-container {
+  bottom: -4rem;
+  position: absolute;
   display: flex;
   justify-content: center;
   margin-top: 20px;

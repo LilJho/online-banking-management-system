@@ -32,7 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             user_id,
             SUM(CASE WHEN account_type = 'savings' THEN balance ELSE 0 END) AS savings,
             SUM(CASE WHEN account_type = 'loan' THEN balance ELSE 0 END) AS loan,
-            SUM(CASE WHEN account_type = 'credit' THEN balance ELSE 0 END) AS credit
+            SUM(CASE WHEN account_type = 'credit' THEN balance ELSE 0 END) AS credit,
+            MAX(CASE WHEN account_type = 'savings' THEN status ELSE NULL END) AS savings_status
         FROM 
             accounts
         WHERE 
@@ -63,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'savings' => floatval($user['savings']),
             'loan' => floatval($user['loan']),
             'credit' => floatval($user['credit']),
+            'savingsStatus' => $user['savings_status'],
         ]);
     } else {
         // If no data found for the given user_id
@@ -71,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'savings' => 0.0,
             'loan' => 0.0,
             'credit' => 0.0,
+            'savingsStatus' => "no account yet",
         ]);
     }
 
