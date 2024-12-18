@@ -143,7 +143,7 @@ document
       }
 
       const result = await response.json(); // Parse the JSON response
-      console.log(result);
+      alert(result.message);
 
       // Refresh the announcements
       fetchAccounts();
