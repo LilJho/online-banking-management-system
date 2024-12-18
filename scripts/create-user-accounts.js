@@ -27,6 +27,7 @@ async function fetchUserAccounts(userId) {
   const data = await response.json();
 
   const container = document.getElementById("dashboard-content");
+  container.innerHTML = "";
 
   // Create savings card
   const savingsCard = document.createElement("div");
@@ -201,10 +202,10 @@ document
       }
 
       const result = await response.json(); // Parse the JSON response
-      console.log(result);
+      alert(result.message);
 
       // Refresh the announcements
-      window.location.reload();
+      fetchUserAccounts(userId);
     } catch (error) {
       console.error("Error deposit savings:", error);
 
@@ -216,7 +217,7 @@ document
       }
     } finally {
       const depositModal = document.getElementById("deposit-savings");
-      if (modal) {
+      if (depositModal) {
         depositModal.style.display = "none";
       }
     }
