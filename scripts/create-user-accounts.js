@@ -12,6 +12,7 @@ window.onload = function () {
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
 
   fetchUserAccounts(user.id);
+  fetchUserTransactions(user.id);
 };
 
 async function fetchUserAccounts(userId) {
@@ -171,6 +172,20 @@ async function fetchUserAccounts(userId) {
   console.log(profileImgUrl);
   profileImage.src = profileImgUrl;
 }
+
+const openTransactionsBtn = document.getElementById("view-transactions");
+const closedTransactionsBtn = document.getElementById("close-transactions-btn");
+const transactionsModal = document.getElementById("transactions");
+
+openTransactionsBtn.onclick = function () {
+  console.log("yee");
+  transactionsModal.style.display = "block";
+};
+closedTransactionsBtn.onclick = function () {
+  console.log("yee");
+
+  transactionsModal.style.display = "none";
+};
 
 const closedDepositBtn = document.getElementById("close-deposit-btn");
 const depositModal = document.getElementById("deposit-savings");
@@ -425,3 +440,67 @@ document
       alert("Failed to toggle account status. Please try again.");
     }
   });
+
+async function fetchUserTransactions(userId, page = 1, limit = 10) {
+  try {
+    const response = await fetch(
+      `get_transactions.php?id=${userId}&page=${page}&limit=${limit}`
+    );
+    const data = await response.json();
+
+    if (response.ok) {
+      if (data.transactions && data.transactions.length > 0) {
+        displayTransactions(data.transactions);
+        updatePagination(data.pagination, userId);
+      } else {
+        alert(data.message || "No transactions found.");
+      }
+    } else {
+      alert(data.error || "Failed to fetch transactions.");
+    }
+  } catch (error) {
+    console.error("Error fetching transactions:", error);
+    alert("An error occurred while fetching transactions.");
+  }
+}
+
+// Display transactions in the HTML table
+function displayTransactions(transactions) {
+  const tableBody = document.querySelector("#transactionsTable tbody");
+  tableBody.innerHTML = ""; // Clear existing rows
+
+  transactions.forEach((transaction) => {
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>${transaction.transaction_id}</td>
+        <td>${transaction.transaction_type}</td>
+        <td>${transaction.amount}</td>
+        <td>${transaction.transaction_date}</td>
+        <td>${transaction.transaction_status}</td>
+      `;
+
+    tableBody.appendChild(row);
+  });
+}
+
+// Update pagination controls
+function updatePagination(pagination, userId) {
+  const paginationContainer = document.getElementById("pagination");
+  paginationContainer.innerHTML = ""; // Clear existing controls
+
+  for (let i = 1; i <= pagination.total_pages; i++) {
+    const pageButton = document.createElement("button");
+    pageButton.textContent = i;
+    pageButton.classList.add("pagination-button");
+    if (i === pagination.current_page) {
+      pageButton.classList.add("active");
+    }
+
+    pageButton.onclick = function () {
+      fetchUserTransactions(userId, i);
+    };
+
+    paginationContainer.appendChild(pageButton);
+  }
+}
