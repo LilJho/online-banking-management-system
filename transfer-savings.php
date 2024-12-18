@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Check the Source Account's Balance
-    $getSourceAccount = $conn->prepare("SELECT balance FROM accounts WHERE user_id = ? AND account_type = ?");
+    $getSourceAccount = $conn->prepare("SELECT account_id, balance FROM accounts WHERE user_id = ? AND account_type = ?");
     $getSourceAccount->bind_param("is", $sourceAccountId, $accountType);
     $getSourceAccount->execute();
     $sourceResult = $getSourceAccount->get_result();
@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Find Destination Account via Users Table
     $getDestinationAccount = $conn->prepare("
-        SELECT a.user_id, a.balance 
+        SELECT a.account_id, a.balance 
         FROM users u 
         JOIN accounts a ON u.id = a.user_id 
         WHERE u.bank_id_no = ? AND a.account_type = ?
@@ -71,15 +71,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Deduct from Source Account
         $newSourceBalance = $sourceAccount['balance'] - $transferAmount;
-        $updateSource = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ?");
-        $updateSource->bind_param("di", $newSourceBalance, $sourceAccountId);
+        $updateSource = $conn->prepare("UPDATE accounts SET balance = ? WHERE account_id = ?");
+        $updateSource->bind_param("di", $newSourceBalance, $sourceAccount['account_id']);
         $updateSource->execute();
 
         // Add to Destination Account
         $newDestinationBalance = $destinationAccount['balance'] + $transferAmount;
-        $updateDestination = $conn->prepare("UPDATE accounts SET balance = ? WHERE user_id = ?");
-        $updateDestination->bind_param("di", $newDestinationBalance, $destinationAccount['user_id']);
+        $updateDestination = $conn->prepare("UPDATE accounts SET balance = ? WHERE account_id = ?");
+        $updateDestination->bind_param("di", $newDestinationBalance, $destinationAccount['account_id']);
         $updateDestination->execute();
+
+        // Log Source Transaction
+        $logSourceTransaction = $conn->prepare("
+            INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status)
+            VALUES (?, 'transfer', ?, NOW(), 'completed')
+        ");
+        $logSourceTransaction->bind_param("id", $sourceAccount['account_id'], $transferAmount);
+        $logSourceTransaction->execute();
+
+        // Log Destination Transaction
+        $logDestinationTransaction = $conn->prepare("
+            INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status)
+            VALUES (?, 'transfer', ?, NOW(), 'completed')
+        ");
+        $logDestinationTransaction->bind_param("id", $destinationAccount['account_id'], $transferAmount);
+        $logDestinationTransaction->execute();
 
         $conn->commit();
 
@@ -99,6 +115,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $getDestinationAccount->close();
     $updateSource->close();
     $updateDestination->close();
+    $logSourceTransaction->close();
+    $logDestinationTransaction->close();
 } else {
     echo json_encode(['error' => 'Invalid request method']);
 }

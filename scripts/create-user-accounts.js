@@ -361,10 +361,9 @@ document
       }
 
       const result = await response.json(); // Parse the JSON response
-      console.log(result);
+      alert(result.message);
 
-      // Refresh the announcements
-      window.location.reload();
+      fetchUserAccounts(userId);
     } catch (error) {
       console.error("Error transfer savings:", error);
 
