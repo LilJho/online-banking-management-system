@@ -31,13 +31,24 @@ if (!in_array($action, ['block', 'archive', 'unblock'])) {
 // Set the status based on the action
 $status = ($action == 'block') ? 'blocked' : 'archived';
 $value = ($action == 'unblock') ? 0 : 1;
+$loginAttempts = ($action == 'unblock') ? 0 : 3;
 
-// Update the user in the database (this is an example, adapt to your schema)
-$query = ($action == 'block' || $action == 'unblock') 
-    ? "UPDATE users SET is_blocked = ? WHERE id = ?" 
-    : "UPDATE users SET is_archived = ? WHERE id = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("si", $value, $userId);
+// Prepare the SQL query based on the action
+if ($action == 'block' || $action == 'unblock') {
+    // Handle block/unblock actions
+    $query = "UPDATE users SET is_blocked = ?, login_attempts = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("iii", $value, $loginAttempts, $userId);
+} elseif ($action == 'archive') {
+    // Handle archive action
+    $query = "UPDATE users SET is_archived = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $value, $userId);
+} else {
+    // Invalid action
+    echo json_encode(["success" => false, "message" => "Invalid action"]);
+    exit;
+}
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true, 'message' => ucfirst($action) . ' action successful']);
