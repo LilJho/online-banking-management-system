@@ -14,6 +14,7 @@ document
     ).value;
     const gender = document.querySelector('select[name="gender"]').value;
     const address = document.querySelector('input[name="address"]').value;
+    const email = document.querySelector('input[name="email"]').value;
 
     const formData = {
       firstName: firstName,
@@ -24,6 +25,7 @@ document
       userId: userData.id,
       gender: gender,
       address: address,
+      email: email,
     };
 
     console.log({ formData });
@@ -58,6 +60,9 @@ document
           userData.last_name = formData.lastName;
           userData.birth_date = formData.birthDate;
           userData.phone_number = formData.phoneNumber;
+          userData.address = formData.address;
+          userData.gender = formData.gender;
+          userData.email = formData.email;
           localStorage.setItem("user", JSON.stringify(userData));
           alert("User updated successfully!");
           window.location.reload(); // Example redirect after success

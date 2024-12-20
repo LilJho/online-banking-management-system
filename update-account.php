@@ -27,10 +27,11 @@ if ($inputData && isset($inputData['firstName'])) {
     $gender = $conn->real_escape_string($inputData['gender']);
     $address = $conn->real_escape_string($inputData['address']);
     $user_id = $conn->real_escape_string($inputData['userId']);
+    $email = $conn->real_escape_string($inputData['email']);
 
     // Use prepared statements to avoid SQL injection
-    $updateQuery = $conn->prepare("UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, birth_date = ?, phone_number = ?, gender = ?, address = ? WHERE id = ?");
-    $updateQuery->bind_param("sssssssi", $first_name, $middle_name, $last_name, $birth_date, $phone_number, $gender, $address, $user_id);
+    $updateQuery = $conn->prepare("UPDATE users SET first_name = ?, middle_name = ?, last_name = ?, birth_date = ?, phone_number = ?, gender = ?, address = ?, email = ? WHERE id = ?");
+    $updateQuery->bind_param("ssssssssi", $first_name, $middle_name, $last_name, $birth_date, $phone_number, $gender, $address, $email, $user_id);
 
     if ($updateQuery->execute()) {
         echo json_encode(['success' => true, 'message' => 'User updated successfully']);

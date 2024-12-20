@@ -28,7 +28,7 @@ if (!$email || !$password) {
 }
 
 // Prepare SQL statement to fetch user details
-$stmt = $conn->prepare("SELECT id, first_name, last_name, email, pass, is_verified, is_blocked, login_attempts, isAdmin FROM users WHERE email = ?");
+$stmt = $conn->prepare("SELECT id, first_name, last_name, email, pass, is_verified, is_blocked, login_attempts, isAdmin, gender, address, phone_number, middle_name, birth_date FROM users WHERE email = ?");
 if (!$stmt) {
     echo json_encode(["success" => false, "message" => "Error preparing statement"]);
     exit;
