@@ -183,6 +183,25 @@ input {
   width: 100%;
 }
 
+select {
+  background-color: #eee; /* Match input background color */
+  border: none; /* Match input border */
+  padding: 12px 15px; /* Match input padding */
+  margin: 8px 0; /* Match input margin */
+  width: 108%; /* Match input width */
+  appearance: none; /* Remove default dropdown arrow (optional) */
+  -webkit-appearance: none; /* Remove default arrow for Safari */
+  -moz-appearance: none; /* Remove default arrow for Firefox */
+}
+
+/* Optional: Add a custom dropdown arrow */
+select:after {
+  content: "▼"; /* Custom arrow symbol */
+  position: absolute;
+  right: 15px;
+  pointer-events: none;
+}
+
 .update-btn {
   border-radius: 10px;
   border: 1px solid #b8860b;

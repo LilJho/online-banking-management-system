@@ -12,6 +12,8 @@ document
     const phoneNumber = document.querySelector(
       'input[name="phonenumber"]'
     ).value;
+    const gender = document.querySelector('select[name="gender"]').value;
+    const address = document.querySelector('input[name="address"]').value;
 
     const formData = {
       firstName: firstName,
@@ -20,7 +22,11 @@ document
       birthDate: birthDate,
       phoneNumber: phoneNumber,
       userId: userData.id,
+      gender: gender,
+      address: address,
     };
+
+    console.log({ formData });
 
     try {
       const response = await fetch("update-account.php", {
@@ -107,7 +113,9 @@ window.onload = function () {
     document.getElementById("lastname").value = userData.last_name || "";
     document.getElementById("birthdate").value = userData.birth_date || "";
     document.getElementById("phonenumber").value = userData.phone_number || "";
-    document.getElementById("email").value = userData.email || "";
+    document.getElementById("email-input").value = userData.email || "";
+    document.getElementById("gender-input").value = userData.gender || "";
+    document.getElementById("address-input").value = userData.address || "";
 
     document.getElementById("fullname").textContent =
       userData.first_name === "admin"
