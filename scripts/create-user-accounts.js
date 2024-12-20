@@ -178,12 +178,11 @@ const closedTransactionsBtn = document.getElementById("close-transactions-btn");
 const transactionsModal = document.getElementById("transactions");
 
 openTransactionsBtn.onclick = function () {
-  console.log("yee");
-  transactionsModal.style.display = "block";
+  transactionsModal.style.display = "flex";
+  transactionsModal.style.justifyContent = "center";
+  transactionsModal.style.alignItems = "center";
 };
 closedTransactionsBtn.onclick = function () {
-  console.log("yee");
-
   transactionsModal.style.display = "none";
 };
 

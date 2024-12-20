@@ -461,7 +461,8 @@
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
-  max-width: 500px;
+  max-width: 600px;
+  min-height: 500px;
   text-align: center;
   position: relative;
   display: flex;
