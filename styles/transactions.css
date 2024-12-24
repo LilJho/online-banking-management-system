@@ -1,0 +1,41 @@
+table {
+  border-collapse: collapse;
+}
+th {
+  background: #e96472;
+  color: #fff;
+}
+
+th,
+td {
+  border: 1px solid #e96472;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background: #fad8dc;
+}
+
+tr:hover {
+  background: #e96472;
+}
+
+.pagination-button {
+  margin: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.pagination-button.active {
+  background-color: #28a745;
+  color: #fff;
+  border-color: #28a745;
+}
+
+.pagination-button:hover {
+  background-color: #218838;
+  color: #fff;
+  border-color: #218838;
+}

@@ -133,6 +133,9 @@ window.onload = function () {
 
   const accountsLink = document.getElementById("account-page-link");
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
+  const transactionLink = document.getElementById("transaction-link");
+  transactionLink.style.display =
+    parseInt(user.isAdmin) === 1 ? "block" : "none";
 
   const fullNameContainer = document.getElementById("full-name");
   fullNameContainer.textContent = fullName;

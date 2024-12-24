@@ -40,7 +40,9 @@ async function fetchUserAccounts(userId) {
 
   const savingsDescription = document.createElement("p");
   savingsDescription.classList.add("cookieDescription");
-  savingsDescription.textContent = `Your Current Savings are: ${data.savings}`;
+  savingsDescription.innerHTML = `Your Current Savings are: ${
+    data.savings
+  } <br> yearly Interest is: ${data.savings * 0.2}`;
 
   const savingsButtonContainer = document.createElement("div");
   savingsButtonContainer.classList.add("btnContainer");
@@ -93,13 +95,14 @@ async function fetchUserAccounts(userId) {
   // Append elements to the card
   savingsCard.appendChild(savingsHeader);
   savingsCard.appendChild(savingsDescription);
+  // savingsCard.appendChild(YearlyInterestDescription);
   loanCard.appendChild(loanHeader);
   loanCard.appendChild(loanDescription);
   creditCard.appendChild(creditHeader);
   creditCard.appendChild(creditDescription);
   if (user.is_verified === 1) {
+    savingsButtonContainer.appendChild(savingsButton);
     if (data.savingsStatus === "active") {
-      savingsButtonContainer.appendChild(savingsButton);
       savingsButtonContainer.appendChild(transferSavingsButton);
     }
     if (data.savingsStatus !== "no account yet") {
@@ -249,11 +252,25 @@ document
   .addEventListener("submit", async function (event) {
     event.preventDefault(); // Prevent default form submission behavior
 
-    const loanAmount = document.getElementById("loan-amount").value;
+    // Get loan amount and selected interest
+    const loanAmount = parseFloat(document.getElementById("loan-amount").value);
+    const selectElement = document.getElementById("months");
+    const interestRate = parseFloat(selectElement.value); // Get selected interest rate
+    const MonthInterestRate =
+      selectElement.options[selectElement.selectedIndex].textContent;
     const userId = localStorage.getItem("userId");
 
+    if (isNaN(loanAmount) || isNaN(interestRate)) {
+      console.error("Invalid loan amount or interest rate.");
+      return;
+    }
+
+    // Calculate the total loan amount including interest
+    const totalLoanAmount = loanAmount + loanAmount * interestRate;
+
+    // Store values in FormData
     const formData = new FormData();
-    formData.append("loan-amount", loanAmount);
+    formData.append("loan-amount", totalLoanAmount.toFixed(2)); // Add total loan amount
     formData.append("id", userId);
 
     try {
@@ -267,23 +284,23 @@ document
       }
 
       const result = await response.json(); // Parse the JSON response
-      console.log(result);
-
-      // Refresh the announcements
-      window.location.reload();
+      alert(result.message);
     } catch (error) {
       console.error("Error loan savings:", error);
 
-      // Additional debugging for non-JSON responses
       if (error.response) {
         console.error("Error response:", error.response);
       } else {
         console.error("Error message:", error.message);
       }
     } finally {
-      const depositModal = document.getElementById("loan");
-      if (modal) {
-        depositModal.style.display = "none";
+      document.getElementById("amount").textContent = loanAmount; // Dummy loan amount
+      document.getElementById("duration").textContent = MonthInterestRate; // Dummy loan duration
+      document.getElementById("total-interest").textContent = interestRate; // Dummy total interest
+      document.getElementById("total-payment").textContent = totalLoanAmount; // Dummy total payment
+      const depositModal = document.getElementById("loan-to-pay");
+      if (depositModal) {
+        depositModal.style.display = "block";
       }
     }
   });
@@ -344,6 +361,12 @@ const transferModal = document.getElementById("transfer-savings");
 
 closedTransferBtn.onclick = function () {
   transferModal.style.display = "none";
+};
+const closedLoanShowBtn = document.getElementById("close-loan-to-pay-btn");
+const loanShowModal = document.getElementById("loan-to-pay");
+
+closedLoanShowBtn.onclick = function () {
+  loanShowModal.style.display = "none";
 };
 
 document

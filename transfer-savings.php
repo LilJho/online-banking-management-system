@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sourceAccountId = intval($_POST['id']);       // Source account ID (from accounts table)
     $destinationBankId = $_POST['bank_id_no'];     // Destination bank_id_no (from users table)
     $transferAmount = floatval($_POST['transfer-amount']);
+    $isAdmin = isset($_POST['isAdmin']) && $_POST['isAdmin'] === 'true';
     $accountType = 'savings';
 
     if (empty($sourceAccountId) || empty($destinationBankId) || empty($transferAmount)) {
@@ -44,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $sourceAccount = $sourceResult->fetch_assoc();
 
-    if ($sourceAccount['balance'] < $transferAmount) {
+    if ($sourceAccount['balance'] < $transferAmount && $isAdmin) {
         echo json_encode(['error' => 'Insufficient balance']);
         exit;
     }
@@ -69,42 +70,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Start Transaction
     $conn->begin_transaction();
     try {
-        // Deduct from Source Account
-        $newSourceBalance = $sourceAccount['balance'] - $transferAmount;
-        $updateSource = $conn->prepare("UPDATE accounts SET balance = ? WHERE account_id = ?");
-        $updateSource->bind_param("di", $newSourceBalance, $sourceAccount['account_id']);
-        $updateSource->execute();
+        if ($isAdmin) {
+            // Admin case: Transfer immediately
+            // Deduct from Source Account
+            $newSourceBalance = $sourceAccount['balance'] - $transferAmount;
+            $updateSource = $conn->prepare("UPDATE accounts SET balance = ? WHERE account_id = ?");
+            $updateSource->bind_param("di", $newSourceBalance, $sourceAccount['account_id']);
+            $updateSource->execute();
 
-        // Add to Destination Account
-        $newDestinationBalance = $destinationAccount['balance'] + $transferAmount;
-        $updateDestination = $conn->prepare("UPDATE accounts SET balance = ? WHERE account_id = ?");
-        $updateDestination->bind_param("di", $newDestinationBalance, $destinationAccount['account_id']);
-        $updateDestination->execute();
+            // Add to Destination Account
+            $newDestinationBalance = $destinationAccount['balance'] + $transferAmount;
+            $updateDestination = $conn->prepare("UPDATE accounts SET balance = ? WHERE account_id = ?");
+            $updateDestination->bind_param("di", $newDestinationBalance, $destinationAccount['account_id']);
+            $updateDestination->execute();
 
-        // Log Source Transaction
-        $logSourceTransaction = $conn->prepare("
-            INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status)
-            VALUES (?, 'transfer', ?, NOW(), 'completed')
-        ");
-        $logSourceTransaction->bind_param("id", $sourceAccount['account_id'], $transferAmount);
-        $logSourceTransaction->execute();
+            // Log Admin Source Transaction
+            $logSourceTransaction = $conn->prepare("
+                INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status, destination_bank_id)
+                VALUES (?, 'transfer', ?, NOW(), 'completed', ?)
+            ");
+            $logSourceTransaction->bind_param("ids", $sourceAccount['account_id'], $transferAmount, $destinationBankId);
+            $logSourceTransaction->execute();
 
-        // Log Destination Transaction
-        $logDestinationTransaction = $conn->prepare("
-            INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status)
-            VALUES (?, 'transfer', ?, NOW(), 'completed')
-        ");
-        $logDestinationTransaction->bind_param("id", $destinationAccount['account_id'], $transferAmount);
-        $logDestinationTransaction->execute();
+            // Log Admin Destination Transaction
+            $logDestinationTransaction = $conn->prepare("
+                INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status, destination_bank_id)
+                VALUES (?, 'transfer', ?, NOW(), 'completed', ?)
+            ");
+            $logDestinationTransaction->bind_param("ids", $destinationAccount['account_id'], $transferAmount, $destinationBankId);
+            $logDestinationTransaction->execute();
+
+            echo json_encode([
+                'message' => 'Transfer successful',
+                'source_new_balance' => $newSourceBalance,
+                'destination_new_balance' => $newDestinationBalance,
+                'transfer_amount' => $transferAmount
+            ]);
+        } else {
+            // Non-admin case: Record transaction as pending
+            $logPendingTransaction = $conn->prepare("
+                INSERT INTO transactions (account_id, transaction_type, amount, transaction_date, transaction_status, destination_bank_id)
+                VALUES (?, 'transfer', ?, NOW(), 'pending', ?)
+            ");
+            $logPendingTransaction->bind_param("ids", $sourceAccount['account_id'], $transferAmount, $destinationBankId);
+            $logPendingTransaction->execute();
+
+            echo json_encode([
+                'message' => 'Transfer recorded as pending. Awaiting admin approval.',
+                'transfer_amount' => $transferAmount
+            ]);
+        }
 
         $conn->commit();
-
-        echo json_encode([
-            'message' => 'Transfer successful',
-            'source_new_balance' => $newSourceBalance,
-            'destination_new_balance' => $newDestinationBalance,
-            'transfer_amount' => $transferAmount
-        ]);
     } catch (Exception $e) {
         $conn->rollback();
         echo json_encode(['error' => 'Transfer failed: ' . $e->getMessage()]);
@@ -113,10 +130,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Close statements
     $getSourceAccount->close();
     $getDestinationAccount->close();
-    $updateSource->close();
-    $updateDestination->close();
-    $logSourceTransaction->close();
-    $logDestinationTransaction->close();
+    if (isset($updateSource)) $updateSource->close();
+    if (isset($updateDestination)) $updateDestination->close();
+    if (isset($logSourceTransaction)) $logSourceTransaction->close();
+    if (isset($logDestinationTransaction)) $logDestinationTransaction->close();
+    if (isset($logPendingTransaction)) $logPendingTransaction->close();
 } else {
     echo json_encode(['error' => 'Invalid request method']);
 }

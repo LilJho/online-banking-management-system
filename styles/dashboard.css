@@ -144,7 +144,8 @@ body {
   display: none;
 }
 
-#account-page-link {
+#account-page-link,
+#transaction-link {
   display: none;
 }
 

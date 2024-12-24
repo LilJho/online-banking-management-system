@@ -230,7 +230,9 @@ window.onload = function () {
     user.first_name === "admin"
       ? `${user.first_name}`
       : `${user.first_name} ${user.last_name}`;
-
+  const transactionLink = document.getElementById("transaction-link");
+  transactionLink.style.display =
+    parseInt(user.isAdmin) === 1 ? "block" : "none";
   const accountsLink = document.getElementById("account-page-link");
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
 

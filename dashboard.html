@@ -88,6 +88,30 @@
               </div>
             </a>
           </li>
+          <li id="transaction-link">
+            <a href="transaction-history.html">
+              <div>
+                <svg
+                  class="w-6 h-6 text-gray-800 dark:text-white"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M11 9h6m-6 3h6m-6 3h6M6.996 9h.01m-.01 3h.01m-.01 3h.01M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"
+                  />
+                </svg>
+                <p>Transactions</p>
+              </div>
+            </a>
+          </li>
           <li id="account-page-link">
             <a href="accounts-page.html">
               <div>
@@ -251,6 +275,14 @@
             placeholder="Amount"
             required
           />
+          <select id="months" name="months" required>
+            <option value="0.05">6 months</option>
+            <option value="0.10">1 years</option>
+            <option value="0.20">2 years</option>
+            <option value="0.30">3 years</option>
+            <option value="0.40">4 years</option>
+            <option value="0.50">5 years</option>
+          </select>
           <button class="loan-to-db" name="loan-to-db" type="submit">
             Loan
           </button>
@@ -299,6 +331,20 @@
         </table>
         <div id="pagination"></div>
         <!-- Pagination container -->
+      </div>
+    </div>
+
+    <div id="loan-to-pay" class="loan-to-pay-modal">
+      <div class="loan-to-pay-content">
+        <span class="close-loan-to-pay-btn" id="close-loan-to-pay-btn"
+          >&times;</span
+        >
+        <h2>Your Loan</h2>
+        <p>Ammount: <span id="amount"></span></p>
+        <p>Duration: <span id="duration"></span></p>
+        <p>Total Interest: <span id="total-interest"></span></p>
+        <p>Total Payment: <span id="total-payment"></span></p>
+        <p>Status: Pending</p>
       </div>
     </div>
 

@@ -80,6 +80,7 @@ document
     const formData = new FormData();
     formData.append("deposit-amount", depositAmount);
     formData.append("id", userId);
+    formData.append("isAdmin", "true");
 
     try {
       const response = await fetch("deposit-savings.php", {
@@ -182,6 +183,7 @@ document
     const formData = new FormData();
     formData.append("loan-amount", loanAmount);
     formData.append("id", userId);
+    formData.append("isAdmin", "true");
 
     try {
       const response = await fetch("loan.php", {
@@ -300,6 +302,7 @@ document
     const formData = new FormData();
     formData.append("credit-amount", creditAmount);
     formData.append("id", userId);
+    formData.append("isAdmin", "true");
 
     try {
       const response = await fetch("credit.php", {
@@ -315,7 +318,7 @@ document
       console.log(result);
 
       // Refresh the announcements
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error("Error credit savings:", error);
 

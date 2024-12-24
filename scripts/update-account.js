@@ -154,6 +154,9 @@ window.onload = function () {
   const profileImgUrl = user.img_url ? user.img_url : "images/profile.png";
 
   const accountsLink = document.getElementById("account-page-link");
+  const transactionLink = document.getElementById("transaction-link");
+  transactionLink.style.display =
+    parseInt(user.isAdmin) === 1 ? "block" : "none";
   accountsLink.style.display = parseInt(user.isAdmin) === 1 ? "block" : "none";
 
   const fullNameContainer = document.getElementById("full-name");
