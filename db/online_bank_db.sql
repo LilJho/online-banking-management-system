@@ -29,7 +29,7 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`account_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `accounts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `accounts` */
 
@@ -45,7 +45,7 @@ CREATE TABLE `announcements` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `announcements` */
 
@@ -78,9 +78,18 @@ CREATE TABLE `offers` (
   `is_active` tinyint(1) DEFAULT '1',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `offers` */
+
+insert  into `offers`(`id`,`title`,`image_url`,`is_active`,`created_at`) values 
+(28,'Holiday Loans','uploads/offers/6768f02b85ac4.jpg',1,'2024-12-23 13:07:55'),
+(29,' Card Promos','uploads/offers/676e816287b20.png',1,'2024-12-23 13:19:34'),
+(30,'75% Off','uploads/offers/6768f2fab60fa.jpg',1,'2024-12-23 13:19:54'),
+(31,'Commercial Bank','uploads/offers/6768f31872b9b.jpg',1,'2024-12-23 13:20:24'),
+(32,'Christmas Magic','uploads/offers/676e8180a7ffe.jpg',1,'2024-12-23 13:21:04'),
+(33,'BIXPY OFF','uploads/offers/6768f364a3780.jpg',1,'2024-12-23 13:21:40'),
+(35,'Best Ever','uploads/offers/676e81958206f.jpg',1,'2024-12-27 18:29:41');
 
 /*Table structure for table `points` */
 
@@ -93,7 +102,7 @@ CREATE TABLE `points` (
   PRIMARY KEY (`point_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `points_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `points` */
 
@@ -122,14 +131,15 @@ DROP TABLE IF EXISTS `transactions`;
 CREATE TABLE `transactions` (
   `transaction_id` int NOT NULL AUTO_INCREMENT,
   `account_id` int NOT NULL,
-  `transaction_type` enum('deposit','withdrawal','transfer') NOT NULL,
+  `transaction_type` enum('deposit','withdrawal','transfer','loan','credit') NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `transaction_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `transaction_status` enum('pending','completed','failed') DEFAULT 'completed',
+  `destination_bank_id` varchar(6) DEFAULT NULL,
   PRIMARY KEY (`transaction_id`),
   KEY `transactions_ibfk_1` (`account_id`),
   CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`account_id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `transactions` */
 
@@ -157,13 +167,14 @@ CREATE TABLE `users` (
   `token` varchar(255) DEFAULT NULL,
   `reset_token` varchar(255) DEFAULT NULL,
   `reset_expires` datetime DEFAULT NULL,
+  `login_attempts` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `users` */
 
-insert  into `users`(`id`,`first_name`,`last_name`,`email`,`pass`,`birth_date`,`middle_name`,`phone_number`,`address`,`isAdmin`,`img_url`,`is_verified`,`gender`,`is_archived`,`is_blocked`,`bank_id_no`,`token`,`reset_token`,`reset_expires`) values 
-(1,'admin','admin','admin@gmail.com','admin123','2024-12-01','admin','123213131','admin',1,'',1,'male',0,0,'',NULL,NULL,NULL);
+insert  into `users`(`id`,`first_name`,`last_name`,`email`,`pass`,`birth_date`,`middle_name`,`phone_number`,`address`,`isAdmin`,`img_url`,`is_verified`,`gender`,`is_archived`,`is_blocked`,`bank_id_no`,`token`,`reset_token`,`reset_expires`,`login_attempts`) values 
+(1,'admin','admin','admin@gmail.com','admin123','2024-12-01','admin','123213131','admin',1,'uploads/profile-pictures/676aa1c8a5e4b-JUN_7457 (1) (1).JPG',1,'male',0,0,'',NULL,NULL,NULL,0);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
