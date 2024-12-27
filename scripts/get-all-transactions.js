@@ -33,14 +33,14 @@ async function fetchAllPendingTransactions(page = 1, limit = 10) {
         displayTransactions(data.transactions);
         updatePagination(data.pagination);
       } else {
-        alert(data.message || "No transactions found.");
+        console(data.message || "No transactions found.");
       }
     } else {
-      alert(data.error || "Failed to fetch transactions.");
+      console(data.error || "Failed to fetch transactions.");
     }
   } catch (error) {
     console.error("Error fetching transactions:", error);
-    alert("An error occurred while fetching transactions.");
+    console("An error occurred while fetching transactions.");
   }
 }
 

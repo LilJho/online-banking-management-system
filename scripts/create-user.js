@@ -44,7 +44,7 @@ document
 
       // Refresh the announcements
       alert(result.message);
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.error("Error creating announcement:", error);
 
